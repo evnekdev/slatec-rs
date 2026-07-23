@@ -74,6 +74,14 @@ The release checklist records package verification, dry-run dependency
 blockers, downstream simulation, crates.io ownership, publication order, and
 yank/rollback preparation.
 
+Cargo writes the current Git revision to `.cargo_vcs_info.json` in a package.
+That receipt remains in every actual `.crate` and the independent audit still
+enforces its real compressed-size limit. Committed package evidence instead
+records canonical size and hash metrics that omit only this volatile receipt,
+so creating the evidence commit cannot itself make the next regeneration
+stale. The audit labels that normalization explicitly; all other packaged
+files remain part of the canonical metrics.
+
 The four API baselines are deliberately not interchangeable: a safe wrapper
 path is not evidence that its raw declaration is stable, and an unsafe ABI path
 is not evidence of a safe facade. Each baseline records its target and feature

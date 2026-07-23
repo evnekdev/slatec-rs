@@ -4,14 +4,14 @@ Independent local status: **pass**. This report is deliberately package-first an
 
 ## Packaged crates
 
-| Crate | Compressed bytes | Files | Result |
+| Crate | Canonical compressed bytes | Files | Result |
 | --- | ---: | ---: | --- |
-| `slatec-bundled-x86_64-pc-windows-gnu` | 385616 | 22 | pass |
-| `slatec-bundled-x86_64-unknown-linux-gnu` | 398560 | 23 | pass |
-| `slatec-sys` | 611678 | 898 | pass |
-| `slatec-core` | 7396 | 12 | pass |
-| `slatec-src` | 159175 | 35 | pass |
-| `slatec` | 344454 | 319 | pass |
+| `slatec-bundled-x86_64-pc-windows-gnu` | 389614 | 22 | pass |
+| `slatec-bundled-x86_64-unknown-linux-gnu` | 406269 | 23 | pass |
+| `slatec-sys` | 612664 | 898 | pass |
+| `slatec-core` | 7231 | 12 | pass |
+| `slatec-src` | 157289 | 35 | pass |
+| `slatec` | 344073 | 319 | pass |
 
 ## Carrier archives
 
