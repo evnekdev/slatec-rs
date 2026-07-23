@@ -96,7 +96,8 @@ mod tests {
 
     #[test]
     fn rejects_out_of_domain_and_underresolved_intervals_before_native_entry() {
-        let data = TabulatedData::from_samples(vec![0.0, 1.0, 2.0], vec![0.0, 1.0, 4.0]).unwrap();
+        let data =
+            TabulatedData::<f64>::from_samples(vec![0.0, 1.0, 2.0], vec![0.0, 1.0, 4.0]).unwrap();
         assert_eq!(
             integrate_tabulated(&data, -1.0..=1.0),
             Err(IntegrationError::InvalidBounds)
