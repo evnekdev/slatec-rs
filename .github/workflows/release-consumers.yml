@@ -27,7 +27,7 @@ jobs:
         run: cargo run -p slatec-tools --bin slatec-corpus -- validate-final-release-audit --offline
       - name: Verify bundled consumer has no dynamic GNU Fortran runtime dependency
         run: |
-          binary=$(find target/release-readiness-registry -type f -name safe-bundled-all-families-linux | head -n 1)
+          binary=$(find target -type f -name safe-bundled-all-families-linux | head -n 1)
           test -n "$binary"
           readelf -d "$binary"
           ! readelf -d "$binary" | grep -E 'libgfortran|libquadmath'
@@ -63,6 +63,6 @@ jobs:
         shell: pwsh
         run: |
           cargo run -p slatec-tools --bin slatec-corpus -- validate-final-release-audit --offline
-          $binary = Get-ChildItem target\release-readiness-registry -Recurse -Filter safe-bundled-all-families-windows.exe | Select-Object -First 1
+          $binary = Get-ChildItem target -Recurse -Filter safe-bundled-all-families-windows.exe | Select-Object -First 1
           if ($null -eq $binary) { throw 'packaged Windows GNU consumer executable was not produced' }
           llvm-objdump -p $binary.FullName | Select-String 'DLL Name'
