@@ -477,11 +477,10 @@ fn parse_indexed_values(text: &str) -> BTreeMap<(String, usize), String> {
     let mut values = BTreeMap::new();
     for line in text.lines() {
         let fields = line.split_whitespace().collect::<Vec<_>>();
-        if fields.len() == 3
-            && matches!(fields[0], "I1MACH" | "R1MACH" | "D1MACH")
-            && let Ok(index) = fields[1].parse::<usize>()
-        {
-            values.insert((fields[0].to_owned(), index), fields[2].to_owned());
+        if fields.len() == 3 && matches!(fields[0], "I1MACH" | "R1MACH" | "D1MACH") {
+            if let Ok(index) = fields[1].parse::<usize>() {
+                values.insert((fields[0].to_owned(), index), fields[2].to_owned());
+            }
         }
     }
     values
@@ -620,10 +619,10 @@ fn provider_audit(
     let fnlib_consumers = fnlib_machine_consumers(records, evidence_dir)?;
     let mut selected_by_name = BTreeMap::new();
     for record in records {
-        if let Some(name) = record["normalized_name"].as_str()
-            && TARGET_ROUTINES.contains(&name)
-        {
-            selected_by_name.insert(name.to_owned(), record);
+        if let Some(name) = record["normalized_name"].as_str() {
+            if TARGET_ROUTINES.contains(&name) {
+                selected_by_name.insert(name.to_owned(), record);
+            }
         }
     }
     let mut rows = Vec::new();

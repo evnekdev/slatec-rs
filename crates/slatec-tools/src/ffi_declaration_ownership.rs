@@ -457,18 +457,18 @@ fn remove_declarations(content: &str, symbols: BTreeSet<String>) -> Result<Strin
     let mut found = BTreeSet::new();
     let mut index = 0usize;
     while index < lines.len() {
-        if let Some(symbol) = link_name(lines[index])
-            && symbols.contains(&symbol)
-        {
-            found.insert(symbol);
-            while index < lines.len() && !lines[index].contains(';') {
+        if let Some(symbol) = link_name(lines[index]) {
+            if symbols.contains(&symbol) {
+                found.insert(symbol);
+                while index < lines.len() && !lines[index].contains(';') {
+                    index += 1;
+                }
+                if index == lines.len() {
+                    return Err(policy("unterminated generated declaration"));
+                }
                 index += 1;
+                continue;
             }
-            if index == lines.len() {
-                return Err(policy("unterminated generated declaration"));
-            }
-            index += 1;
-            continue;
         }
         output.push_str(lines[index]);
         index += 1;

@@ -1248,17 +1248,18 @@ fn source_reference(identity: &str, entry: &DirectoryEntry) -> Result<Value> {
             }
         } else if let Some((entry_name, _)) =
             fixed_form::entry_declaration(&statement.normalized_statement_text)
-            && entry_name.eq_ignore_ascii_case(identity)
         {
-            return Ok(json!({
-                "url":url,
-                "status":"verified_cached",
-                "cached_path":slash_path(path),
-                "verification_basis":"fixed_form_entry_declaration",
-                "declaration_kind":"entry",
-                "declared_identity":expected,
-                "entry_parent":parent
-            }));
+            if entry_name.eq_ignore_ascii_case(identity) {
+                return Ok(json!({
+                    "url":url,
+                    "status":"verified_cached",
+                    "cached_path":slash_path(path),
+                    "verification_basis":"fixed_form_entry_declaration",
+                    "declaration_kind":"entry",
+                    "declared_identity":expected,
+                    "entry_parent":parent
+                }));
+            }
         }
         if fixed_form::is_end(&statement.normalized_statement_text) {
             parent = None;
@@ -2795,14 +2796,15 @@ fn routine_page_markdown(record: &Value) -> String {
         if let Some(reference) = record
             .pointer(&format!("/official_documentation/{key}"))
             .filter(|value| !value.is_null())
-            && let Some(url) = reference.get("url").and_then(Value::as_str)
         {
-            let status = reference
-                .get("status")
-                .and_then(Value::as_str)
-                .unwrap_or("candidate_unverified");
-            output.push_str(&format!("- [{label}]({url}) — `{status}`\n"));
-            reference_count += 1;
+            if let Some(url) = reference.get("url").and_then(Value::as_str) {
+                let status = reference
+                    .get("status")
+                    .and_then(Value::as_str)
+                    .unwrap_or("candidate_unverified");
+                output.push_str(&format!("- [{label}]({url}) — `{status}`\n"));
+                reference_count += 1;
+            }
         }
     }
     if reference_count == 0 {
