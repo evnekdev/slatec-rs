@@ -68,6 +68,7 @@ Generated evidence is committed at:
 - [`package-size-audit.json`](../../generated/release-readiness/package-size-audit.json)
 - [`release-check-trust-boundaries.json`](../../generated/release-readiness/release-check-trust-boundaries.json)
 - [`release-blockers.json`](../../generated/release-readiness/release-blockers.json)
+- [`generator-drift-analysis.json`](../../generated/release-readiness/generator-drift-analysis.json) â€” transactional freshness partition, output-to-input ownership, and the resolved semantic-owner regression
 
 The release checklist records package verification, dry-run dependency
 blockers, downstream simulation, crates.io ownership, publication order, and
@@ -85,3 +86,21 @@ release order, decompresses each `.crate`, recomputes hashes and carrier
 receipt checks, and compares its counts with the release-candidate report.
 Its trust-boundary document labels stored generator output as self-referential
 rather than mistaking it for independent proof.
+
+## Generated-evidence ownership and freshness
+
+`public_api_semantic_review` is the sole writer for canonical-public routine
+pages and the documentation-quality and argument-coverage mirrors. The
+release-readiness generator owns secondary routine pages, family navigation,
+and reconciliation evidence only. `validate-release-readiness` recomputes its
+own outputs transactionally and restores the working tree before reporting a
+failure. Its diagnostic report classifies every difference by owner, category,
+risk, line count, EOL/ordering status, schema change, and canonical/safe-path
+impact; it never treats a classification as permission to accept the change.
+
+Generate and validate the durable report with:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- generate-release-readiness-drift-report --offline
+cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness-drift-report --offline
+```

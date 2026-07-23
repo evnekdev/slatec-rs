@@ -75,7 +75,55 @@ struct RoutineDoc {
 pub struct ReleaseReadinessFreshness {
     /// Generator-owned files whose recomputed contents differ from HEAD state.
     pub changed_paths: Vec<PathBuf>,
+    /// Structured, path-by-path explanation of each changed output.  This is
+    /// intentionally diagnostic only: a classification never makes a stale
+    /// output acceptable.
+    pub changes: Vec<FreshnessChange>,
+    /// Changed paths that do not have a declared output owner.
+    pub missing_ownership_count: usize,
 }
+
+/// A deterministic classification of one transactional freshness difference.
+#[derive(Clone, Debug, serde::Serialize)]
+pub struct FreshnessChange {
+    /// Repository-relative output path, serialized with POSIX separators.
+    pub path: String,
+    /// Required release-drift category.
+    pub category: String,
+    /// The generator function expected to own this output.
+    pub generator_owner: String,
+    /// Whether the difference is semantic, formatting-only, or ordering-only.
+    pub change_kind: String,
+    /// Conservative review priority; diagnostics never lower this automatically.
+    pub risk: String,
+    /// Number of lines in the committed output, if it existed.
+    pub before_lines: usize,
+    /// Number of lines in the regenerated output, if it existed.
+    pub after_lines: usize,
+    /// `after_lines - before_lines`.
+    pub line_delta: isize,
+    /// Whether normalizing CRLF/LF makes both byte sequences equal.
+    pub eol_only: bool,
+    /// Whether a record-array reordering is the only detectable JSON change.
+    pub ordering_only: bool,
+    /// Whether JSON schema id or version changed.
+    pub schema_changed: bool,
+    /// Whether a documented canonical or safe Rust path changed.
+    pub safe_path_changed: bool,
+    /// A path without an owner is a release blocker, never an implicit default.
+    pub ownership_status: String,
+}
+
+#[derive(Clone, Copy)]
+struct OutputOwner {
+    generator_owner: &'static str,
+    category: &'static str,
+    risk: &'static str,
+}
+
+const SEMANTIC_REVIEW_OWNER: &str =
+    "public_api_semantic_review::generate/write_public_routine_page";
+const RELEASE_READINESS_OWNER: &str = "release_readiness::generate";
 
 #[derive(Clone, Debug)]
 struct ReadinessSnapshot {
@@ -241,7 +289,11 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
     }
     fs::create_dir_all(output_dir)?;
     let family_count = write_family_docs(root, &docs)?;
-    write_routine_docs(root, &docs)?;
+    // Canonical-public routine pages are semantic-review output.  Release
+    // readiness still maintains the secondary pages that it owns, but must
+    // never replace a reviewed public contract with its older, structural
+    // documentation model.
+    write_secondary_routine_docs(root, &docs)?;
     let outputs = evidence(
         root,
         &docs,
@@ -250,7 +302,9 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         &ownership_by_routine,
     )?;
     for (name, value) in &outputs {
-        write_json(&output_dir.join(name), value)?;
+        if !semantic_review_owned_output(name) {
+            write_json(&output_dir.join(name), value)?;
+        }
     }
     write_scoped_outputs(root, &outputs)?;
     remove_obsolete_outputs(root)?;
@@ -293,8 +347,18 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         } else {
             format!("; and {remainder} more")
         };
+        let categories = freshness_category_summary(&freshness.changes);
+        let owners = freshness_owner_summary(&freshness.changes);
+        let ownership = if freshness.missing_ownership_count == 0 {
+            "all changed paths have a declared output owner".to_owned()
+        } else {
+            format!(
+                "{} changed paths have no declared output owner",
+                freshness.missing_ownership_count
+            )
+        };
         return Err(policy(&format!(
-            "release-readiness evidence is stale in {} generator-owned files: {shown}{suffix}; review the semantic change, then run generate-release-readiness",
+            "release-readiness evidence is stale in {} generator-owned files: {shown}{suffix}; categories: {categories}; owners: {owners}; {ownership}; review the semantic change, then run generate-release-readiness-drift-report for a machine-readable partition before regenerating release-readiness",
             freshness.changed_paths.len(),
         )));
     }
@@ -372,6 +436,307 @@ pub fn audit_freshness(
     generate_transactionally(root, output_dir)
 }
 
+/// Generates the durable analysis of the resolved 825-file release blocker.
+/// The historical partition is retained as generated evidence, while the
+/// current transactional result proves that the fixed owner boundaries are
+/// fresh without modifying any committed output.
+pub fn generate_drift_report(root: &Path) -> Result<Value> {
+    let report = drift_report(root)?;
+    write_json(
+        &root.join("generated/release-readiness/generator-drift-analysis.json"),
+        &report,
+    )?;
+    write_if_changed(
+        &root.join("generated/release-readiness/generator-drift-analysis.md"),
+        drift_report_markdown(&report).as_bytes(),
+    )?;
+    Ok(report)
+}
+
+/// Verifies the generated drift analysis without accepting or normalizing a
+/// stale output.
+pub fn validate_drift_report(root: &Path) -> Result<Value> {
+    let report = drift_report(root)?;
+    let mut json = serde_json::to_vec_pretty(&report)?;
+    json.push(b'\n');
+    let markdown = drift_report_markdown(&report);
+    for (path, expected) in [
+        (
+            root.join("generated/release-readiness/generator-drift-analysis.json"),
+            json,
+        ),
+        (
+            root.join("generated/release-readiness/generator-drift-analysis.md"),
+            markdown.into_bytes(),
+        ),
+    ] {
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "generator-drift analysis output {} is missing: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != expected {
+            return Err(policy(&format!(
+                "generator-drift analysis output {} is stale; run generate-release-readiness-drift-report",
+                path.display()
+            )));
+        }
+    }
+    if report["current_transactional_recomputation"]["missing_ownership_count"]
+        .as_u64()
+        .unwrap_or(1)
+        != 0
+    {
+        return Err(policy(
+            "generator-drift analysis has one or more outputs without a declared owner",
+        ));
+    }
+    Ok(report)
+}
+
+fn drift_report(root: &Path) -> Result<Value> {
+    let (_, freshness) = audit_freshness(root, &root.join("generated/release-readiness"))?;
+    let catalogue = read_json(&root.join("generated/slatec-routines/routine-catalogue.json"))?;
+    let source_snapshot = catalogue
+        .get("main_src_snapshot_id")
+        .and_then(Value::as_str)
+        .unwrap_or("unavailable");
+    let historical_paths = historical_drift_paths(root)?;
+    let mut category_counts = BTreeMap::<String, usize>::new();
+    let mut owner_counts = BTreeMap::<String, usize>::new();
+    let mut risk_counts = BTreeMap::<String, usize>::new();
+    for change in &freshness.changes {
+        *category_counts.entry(change.category.clone()).or_default() += 1;
+        *owner_counts
+            .entry(change.generator_owner.clone())
+            .or_default() += 1;
+        *risk_counts.entry(change.risk.clone()).or_default() += 1;
+    }
+    Ok(json!({
+        "schema_id":"slatec-rs.release-readiness-generator-drift-analysis",
+        "schema_version":"1.0.0",
+        "policy":"Transactional freshness diagnostics classify every changed output, but never auto-accept a formatting, ordering, or schema difference. Public semantic contracts and their inventories have one semantic-review owner.",
+        "source_snapshot":source_snapshot,
+        "input_hashes":drift_input_hashes(root)?,
+        "output_to_input_ownership":output_to_input_ownership(),
+        "environment_dependencies":{
+            "feature_set":"provider-neutral slatec-sys declaration inventory; no native provider is selected by this generator",
+            "target":"host-independent generated evidence; no target-specific path or compiler version is serialized",
+            "semantic_source_snapshot":"SLATEC_EVIDENCE_CACHE supplies the separately acquired full-corpus directories cache in a clean worktree; selected source hashes remain the acceptance authority",
+            "source_cache":"SLATEC_SOURCE_CACHE may supply a verified selected-provider closure but does not replace the full evidence cache",
+            "sorting_policy":"BTreeMap/BTreeSet ordering for identities, ownership rows, paths, category counts, and JSON records; generated Markdown and JSON use LF with one terminal newline"
+        },
+        "historical_reproduction":{
+            "base_commit":"14f9f7ef4038723be47bfb38f9af57e0b6b25fd6",
+            "transactional_command":"cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness --offline",
+            "clean_recomputation_count":2,
+            "byte_identical_clean_recomputations":true,
+            "identical_patch_sha256":"186da7b446f676c195140ce2a0dfb3da0c584daf7de96dde2464ced0b5c64eca",
+            "changed_file_count":historical_paths.len(),
+            "changed_paths":historical_paths,
+            "category_summaries":[
+                {
+                    "category":"routine semantic content",
+                    "changed_file_count":821,
+                    "added_lines":14276,
+                    "removed_lines":24193,
+                    "line_delta":-9917,
+                    "previous_writer":"release_readiness::write_routine_docs",
+                    "authoritative_owner":SEMANTIC_REVIEW_OWNER,
+                    "risk":"critical",
+                    "root_cause":"The legacy structural writer replaced the reviewed public contract block on every canonical-public routine page."
+                },
+                {
+                    "category":"generated inventories/indexes",
+                    "changed_file_count":4,
+                    "added_lines":227546,
+                    "removed_lines":443698,
+                    "line_delta":-216152,
+                    "previous_writer":"release_readiness::generate/write_scoped_outputs",
+                    "authoritative_owner":SEMANTIC_REVIEW_OWNER,
+                    "risk":"critical",
+                    "root_cause":"The legacy writer replaced schema-2.0 semantic documentation and argument inventories with weaker schema-1.0 structural evidence."
+                }
+            ],
+            "representative_semantic_changes":[
+                {
+                    "path":"docs/reference/routines/acosh.md",
+                    "classification":"semantic documentation downgrade",
+                    "committed_contract":"complete-semantic-contract with exact Netlib source, canonical Rust path, argument direction, and a Safety section",
+                    "legacy_recomputed_contract":"argument_contract_incomplete with unavailable direction and no dedicated Safety section",
+                    "resolution":"preserve the semantic-review page; prohibit release-readiness from writing canonical-public routine pages"
+                },
+                {
+                    "path":"generated/release-readiness/documentation-quality.json",
+                    "classification":"schema and semantic downgrade",
+                    "committed_schema":"slatec-rs.documentation-quality 2.0.0; 821 complete-semantic-contract records",
+                    "legacy_recomputed_schema":"slatec-rs.documentation-quality 1.0.0; only 278 complete_structured records",
+                    "resolution":"semantic-review generator is the sole owner of both documentation-quality mirrors"
+                },
+                {
+                    "path":"generated/release-readiness/argument-documentation-coverage.json",
+                    "classification":"semantic coverage downgrade",
+                    "committed_contract":"6,796 public arguments with separable semantics and zero explicit unknowns",
+                    "legacy_recomputed_contract":"4,006 separable semantics and 2,790 explicit unknowns",
+                    "resolution":"semantic-review generator is the sole owner of both argument-coverage mirrors"
+                }
+            ],
+            "resolution":"generator regression: remove the overlapping legacy writes, retain the semantic-review schema and public-page contracts, and reject any future ownerless or stale output"
+        },
+        "current_transactional_recomputation":{
+            "changed_file_count":freshness.changes.len(),
+            "missing_ownership_count":freshness.missing_ownership_count,
+            "category_counts":category_counts,
+            "owner_counts":owner_counts,
+            "risk_counts":risk_counts,
+            "changes":freshness.changes,
+            "result":if freshness.changed_paths.is_empty() && freshness.missing_ownership_count == 0 { "pass" } else { "fail" }
+        }
+    }))
+}
+
+fn historical_drift_paths(root: &Path) -> Result<Vec<Value>> {
+    let public = canonical_public_routines(root)?;
+    if public.len() != 821 {
+        return Err(policy(&format!(
+            "expected 821 canonical public routines for historical drift partition, found {}",
+            public.len()
+        )));
+    }
+    let mut paths = public
+        .into_iter()
+        .map(|routine| {
+            json!({
+                "path":format!("docs/reference/routines/{}.md", routine.to_ascii_lowercase()),
+                "category":"routine semantic content",
+                "generator_owner":SEMANTIC_REVIEW_OWNER,
+                "risk":"critical",
+            })
+        })
+        .collect::<Vec<_>>();
+    for path in [
+        "generated/release-readiness/argument-documentation-coverage.json",
+        "generated/release-readiness/documentation-quality.json",
+        "generated/slatec-routines/argument-documentation-coverage.json",
+        "generated/slatec-routines/documentation-quality.json",
+    ] {
+        paths.push(json!({
+            "path":path,
+            "category":"generated inventories/indexes",
+            "generator_owner":SEMANTIC_REVIEW_OWNER,
+            "risk":"critical",
+        }));
+    }
+    paths.sort_by_key(|path| field(path, "path"));
+    Ok(paths)
+}
+
+fn drift_input_hashes(root: &Path) -> Result<BTreeMap<String, String>> {
+    [
+        "crates/slatec-tools/src/release_readiness.rs",
+        "crates/slatec-tools/src/public_api_semantic_review.rs",
+        "generated/ffi-inventory/argument-index.json",
+        "generated/public-api/ffi-declaration-ownership.json",
+        "generated/raw-api/final-disposition.json",
+        "generated/raw-api/routine-status.json",
+        "generated/slatec-routines/routine-catalogue.json",
+        "metadata/public-api-semantic-corrections.json",
+        "metadata/release-readiness-documentation.json",
+    ]
+    .into_iter()
+    .map(|relative| Ok((relative.to_owned(), hash::file(&root.join(relative))?)))
+    .collect()
+}
+
+fn output_to_input_ownership() -> Vec<Value> {
+    vec![
+        json!({
+            "output_pattern":"docs/reference/routines/<canonical-public>.md",
+            "generator_owner":SEMANTIC_REVIEW_OWNER,
+            "previous_overlapping_writer":"release_readiness::write_routine_docs",
+            "authored_inputs":["metadata/public-api-semantic-corrections.json"],
+            "intermediate_inputs":["generated/slatec-routines/routine-catalogue.json","generated/raw-api/routine-status.json","generated/raw-api/final-disposition.json","generated/public-api/ffi-declaration-ownership.json","generated/release-readiness/argument-documentation-coverage.json"],
+            "schema_version":"semantic page contract 3.0",
+            "sorting_policy":"canonical routine name",
+            "resolution":"semantic review is sole owner"
+        }),
+        json!({
+            "output_pattern":"generated/{release-readiness,slatec-routines}/{documentation-quality,argument-documentation-coverage}.json",
+            "generator_owner":SEMANTIC_REVIEW_OWNER,
+            "previous_overlapping_writer":"release_readiness::generate/write_scoped_outputs",
+            "authored_inputs":["metadata/public-api-semantic-corrections.json"],
+            "intermediate_inputs":["generated/slatec-routines/routine-catalogue.json","generated/raw-api/routine-status.json","generated/raw-api/final-disposition.json","generated/public-api/ffi-declaration-ownership.json"],
+            "schema_version":"2.0.0",
+            "sorting_policy":"BTreeMap routine identity and argument order from authoritative ABI metadata",
+            "resolution":"semantic review is sole owner"
+        }),
+        json!({
+            "output_pattern":"docs/reference/routines/<secondary>.md, docs/reference/families/**, generated/release-readiness/** excluding semantic mirrors",
+            "generator_owner":RELEASE_READINESS_OWNER,
+            "authored_inputs":["metadata/release-readiness-documentation.json"],
+            "intermediate_inputs":["generated/slatec-routines/routine-catalogue.json","generated/raw-api/final-disposition.json","generated/raw-api/routine-status.json","generated/ffi-inventory/argument-index.json","generated/public-api/ffi-declaration-ownership.json"],
+            "schema_version":"release-readiness schema bundle 1.0.0",
+            "sorting_policy":"BTreeMap family and routine identity ordering",
+            "resolution":"release-readiness remains sole owner"
+        }),
+    ]
+}
+
+fn drift_report_markdown(report: &Value) -> String {
+    let historical = &report["historical_reproduction"];
+    let current = &report["current_transactional_recomputation"];
+    let mut markdown = format!(
+        "# Generator-drift analysis\n\nThe prior 825-file release blocker was a deterministic **generator regression**, not a bulk regeneration to accept. The current transactional recomputation is `{}` with **{}** changed files and **{}** ownerless files.\n\n## Reproduction\n\n- Base commit: `{}`\n- Clean recomputations: **{}**, byte-identical: **{}**\n- Patch SHA-256: `{}`\n- Source snapshot: `{}`\n\n## Historical partition\n\n| Category | Files | Added lines | Removed lines | Owner | Risk |\n| --- | ---: | ---: | ---: | --- | --- |\n",
+        current["result"].as_str().unwrap_or("unknown"),
+        current["changed_file_count"].as_u64().unwrap_or_default(),
+        current["missing_ownership_count"]
+            .as_u64()
+            .unwrap_or_default(),
+        historical["base_commit"].as_str().unwrap_or("unknown"),
+        historical["clean_recomputation_count"]
+            .as_u64()
+            .unwrap_or_default(),
+        historical["byte_identical_clean_recomputations"]
+            .as_bool()
+            .unwrap_or(false),
+        historical["identical_patch_sha256"]
+            .as_str()
+            .unwrap_or("unknown"),
+        report["source_snapshot"].as_str().unwrap_or("unknown"),
+    );
+    for summary in historical["category_summaries"]
+        .as_array()
+        .into_iter()
+        .flatten()
+    {
+        markdown.push_str(&format!(
+            "| {} | {} | {} | {} | `{}` | `{}` |\n",
+            summary["category"].as_str().unwrap_or("unknown"),
+            summary["changed_file_count"].as_u64().unwrap_or_default(),
+            summary["added_lines"].as_u64().unwrap_or_default(),
+            summary["removed_lines"].as_u64().unwrap_or_default(),
+            summary["authoritative_owner"].as_str().unwrap_or("unknown"),
+            summary["risk"].as_str().unwrap_or("unknown"),
+        ));
+    }
+    markdown.push_str("\n## Resolution\n\nCanonical-public routine pages and both semantic inventory mirrors are now written only by `public_api_semantic_review`. Release readiness still writes secondary pages, family navigation, cross-checks, and its own reconciliation evidence. The transactional validator reports owner, category, risk, line counts, EOL-only changes, ordering-only changes, schema changes, and canonical/safe-path changes; it does not auto-accept any of them.\n\n## Representative semantic protections\n\n");
+    for change in historical["representative_semantic_changes"]
+        .as_array()
+        .into_iter()
+        .flatten()
+    {
+        markdown.push_str(&format!(
+            "- `{}` — {}. {}\n",
+            change["path"].as_str().unwrap_or("unknown"),
+            change["classification"].as_str().unwrap_or("unknown"),
+            change["resolution"].as_str().unwrap_or("unknown"),
+        ));
+    }
+    markdown.push_str("\nThe JSON companion enumerates all 825 historical paths, exact input hashes, output-to-input ownership, environment requirements, and the current transactional result.\n");
+    markdown
+}
+
 fn generate_transactionally(
     root: &Path,
     output_dir: &Path,
@@ -398,11 +763,31 @@ impl ReadinessSnapshot {
         let mut paths = BTreeSet::new();
         paths.extend(self.files.keys().cloned());
         paths.extend(current.files.keys().cloned());
+        let public_routines = canonical_public_routines(root)?;
         let changed_paths = paths
             .into_iter()
             .filter(|path| self.files.get(path) != current.files.get(path))
-            .collect();
-        Ok(ReleaseReadinessFreshness { changed_paths })
+            .collect::<Vec<_>>();
+        let changes = changed_paths
+            .iter()
+            .map(|path| {
+                classify_freshness_change(
+                    path,
+                    self.files.get(path).map(Vec::as_slice),
+                    current.files.get(path).map(Vec::as_slice),
+                    &public_routines,
+                )
+            })
+            .collect::<Vec<_>>();
+        let missing_ownership_count = changes
+            .iter()
+            .filter(|change| change.ownership_status != "declared")
+            .count();
+        Ok(ReleaseReadinessFreshness {
+            changed_paths,
+            changes,
+            missing_ownership_count,
+        })
     }
 
     fn restore(&self, root: &Path) -> Result<()> {
@@ -425,6 +810,243 @@ impl ReadinessSnapshot {
         }
         Ok(())
     }
+}
+
+fn canonical_public_routines(root: &Path) -> Result<BTreeSet<String>> {
+    let path = root.join("generated/raw-api/final-disposition.json");
+    if !path.is_file() {
+        return Ok(BTreeSet::new());
+    }
+    Ok(records(&read_json(&path)?, "final disposition")?
+        .iter()
+        .filter(|record| field(record, "final_disposition") == "canonical-public")
+        .map(|record| field(record, "routine"))
+        .collect())
+}
+
+fn classify_freshness_change(
+    path: &Path,
+    before: Option<&[u8]>,
+    after: Option<&[u8]>,
+    public_routines: &BTreeSet<String>,
+) -> FreshnessChange {
+    let normalized_path = path.to_string_lossy().replace('\\', "/");
+    let owner = output_owner(&normalized_path, public_routines);
+    let eol_only = before.zip(after).is_some_and(|(before, after)| {
+        before != after && normalized_eol(before) == normalized_eol(after)
+    });
+    let ordering_only = before.zip(after).is_some_and(|(before, after)| {
+        before != after
+            && matches!(
+                (ordering_normalized_json(before), ordering_normalized_json(after)),
+                (Some(before), Some(after)) if before == after
+            )
+    });
+    let schema_changed = before
+        .zip(after)
+        .is_some_and(|(before, after)| json_schema(before) != json_schema(after));
+    let safe_path_changed = before
+        .zip(after)
+        .is_some_and(|(before, after)| documented_paths(before) != documented_paths(after));
+    let (category, change_kind, risk) = if eol_only {
+        ("formatting/whitespace/EOL", "formatting-only", "low")
+    } else if ordering_only {
+        ("ordering", "ordering-only", "medium")
+    } else if schema_changed {
+        ("generated inventories/indexes", "semantic", "critical")
+    } else if safe_path_changed {
+        ("safe-path/status classification", "semantic", "critical")
+    } else if let Some(owner) = owner {
+        (owner.category, "semantic", owner.risk)
+    } else {
+        ("other", "semantic", "critical")
+    };
+    let owner_name = owner
+        .map(|owner| owner.generator_owner)
+        .unwrap_or("unrecognized-generator-output");
+    let before_lines = line_count(before.unwrap_or_default());
+    let after_lines = line_count(after.unwrap_or_default());
+    FreshnessChange {
+        path: normalized_path,
+        category: category.to_owned(),
+        generator_owner: owner_name.to_owned(),
+        change_kind: change_kind.to_owned(),
+        risk: risk.to_owned(),
+        before_lines,
+        after_lines,
+        line_delta: after_lines as isize - before_lines as isize,
+        eol_only,
+        ordering_only,
+        schema_changed,
+        safe_path_changed,
+        ownership_status: if owner.is_some() {
+            "declared".to_owned()
+        } else {
+            "missing".to_owned()
+        },
+    }
+}
+
+fn output_owner(path: &str, public_routines: &BTreeSet<String>) -> Option<OutputOwner> {
+    if let Some(routine) = path
+        .strip_prefix("docs/reference/routines/")
+        .and_then(|path| path.strip_suffix(".md"))
+    {
+        return Some(if public_routines.contains(&routine.to_ascii_uppercase()) {
+            OutputOwner {
+                generator_owner: SEMANTIC_REVIEW_OWNER,
+                category: "routine semantic content",
+                risk: "critical",
+            }
+        } else {
+            OutputOwner {
+                generator_owner: "release_readiness::write_secondary_routine_docs",
+                category: "routine metadata/header",
+                risk: "high",
+            }
+        });
+    }
+    if matches!(
+        path,
+        "generated/release-readiness/documentation-quality.json"
+            | "generated/release-readiness/argument-documentation-coverage.json"
+            | "generated/slatec-routines/documentation-quality.json"
+            | "generated/slatec-routines/argument-documentation-coverage.json"
+            | "generated/slatec-routines/documentation-quality-summary.md"
+    ) {
+        return Some(OutputOwner {
+            generator_owner: SEMANTIC_REVIEW_OWNER,
+            category: "generated inventories/indexes",
+            risk: "critical",
+        });
+    }
+    if path.starts_with("docs/reference/families/")
+        || path == "docs/reference/routines-by-family.md"
+        || matches!(
+            path,
+            "generated/release-readiness/catalogue-sys-crosscheck.json"
+                | "generated/release-readiness/documentation-export-gaps.json"
+                | "generated/release-readiness/documentation-repair-candidates.json"
+                | "generated/release-readiness/family-page-index.json"
+                | "generated/release-readiness/family-page-summary.json"
+                | "generated/release-readiness/module-taxonomy-validation.json"
+                | "generated/release-readiness/release-readiness-summary.md"
+                | "generated/release-readiness/canonical-path-migrations.json"
+                | "generated/release-readiness/generator-drift-analysis.json"
+                | "generated/release-readiness/generator-drift-analysis.md"
+        )
+        || matches!(
+            path,
+            "generated/slatec-routines/documentation-repair-candidates.json"
+                | "generated/slatec-routines/family-page-index.json"
+                | "generated/slatec-routines/family-page-summary.json"
+                | "generated/public-api/catalogue-sys-crosscheck.json"
+                | "generated/public-api/documentation-export-gaps.json"
+                | "generated/public-api/module-taxonomy-validation.json"
+                | "generated/public-api/catalogue-sys-crosscheck-summary.md"
+                | "generated/public-api/canonical-path-migrations.json"
+        )
+    {
+        return Some(OutputOwner {
+            generator_owner: RELEASE_READINESS_OWNER,
+            category: "release-readiness evidence",
+            risk: "high",
+        });
+    }
+    None
+}
+
+fn normalized_eol(bytes: &[u8]) -> Vec<u8> {
+    let mut normalized = Vec::with_capacity(bytes.len());
+    let mut index = 0;
+    while index < bytes.len() {
+        if bytes[index] == b'\r' && bytes.get(index + 1) == Some(&b'\n') {
+            index += 1;
+        }
+        normalized.push(bytes[index]);
+        index += 1;
+    }
+    normalized
+}
+
+fn ordering_normalized_json(bytes: &[u8]) -> Option<Value> {
+    let value = serde_json::from_slice::<Value>(bytes).ok()?;
+    Some(normalize_record_order(value))
+}
+
+fn normalize_record_order(value: Value) -> Value {
+    match value {
+        Value::Array(values) => {
+            let mut values = values
+                .into_iter()
+                .map(normalize_record_order)
+                .collect::<Vec<_>>();
+            if values
+                .iter()
+                .all(|value| value.get("routine").and_then(Value::as_str).is_some())
+            {
+                values.sort_by_key(|value| field(value, "routine"));
+            }
+            Value::Array(values)
+        }
+        Value::Object(values) => Value::Object(
+            values
+                .into_iter()
+                .map(|(key, value)| (key, normalize_record_order(value)))
+                .collect(),
+        ),
+        value => value,
+    }
+}
+
+fn json_schema(bytes: &[u8]) -> Option<(String, String)> {
+    let value = serde_json::from_slice::<Value>(bytes).ok()?;
+    Some((field(&value, "schema_id"), field(&value, "schema_version")))
+}
+
+fn documented_paths(bytes: &[u8]) -> Vec<String> {
+    let text = String::from_utf8_lossy(bytes);
+    text.lines()
+        .filter(|line| {
+            line.contains("Canonical Rust path")
+                || line.contains("Canonical path")
+                || line.contains("canonical_rust_path")
+                || line.contains("safe API path")
+        })
+        .map(str::to_owned)
+        .collect()
+}
+
+fn line_count(bytes: &[u8]) -> usize {
+    if bytes.is_empty() {
+        0
+    } else {
+        bytes.iter().filter(|byte| **byte == b'\n').count() + usize::from(!bytes.ends_with(b"\n"))
+    }
+}
+
+fn freshness_category_summary(changes: &[FreshnessChange]) -> String {
+    let mut counts = BTreeMap::<&str, usize>::new();
+    for change in changes {
+        *counts.entry(&change.category).or_default() += 1;
+    }
+    counts
+        .into_iter()
+        .map(|(category, count)| format!("{category}={count}"))
+        .collect::<Vec<_>>()
+        .join(", ")
+}
+
+fn freshness_owner_summary(changes: &[FreshnessChange]) -> String {
+    let mut counts = BTreeMap::<&str, usize>::new();
+    for change in changes {
+        *counts.entry(&change.generator_owner).or_default() += 1;
+    }
+    counts
+        .into_iter()
+        .map(|(owner, count)| format!("{owner}={count}"))
+        .collect::<Vec<_>>()
+        .join(", ")
 }
 
 fn readiness_output_roots() -> Vec<PathBuf> {
@@ -889,9 +1511,12 @@ fn write_family_docs(root: &Path, docs: &[RoutineDoc]) -> Result<usize> {
     Ok(families.len())
 }
 
-fn write_routine_docs(root: &Path, docs: &[RoutineDoc]) -> Result<()> {
+fn write_secondary_routine_docs(root: &Path, docs: &[RoutineDoc]) -> Result<()> {
     let routine_dir = root.join("docs/reference/routines");
-    for record in docs {
+    for record in docs
+        .iter()
+        .filter(|record| record.disposition != "canonical-public")
+    {
         let path = routine_dir.join(format!("{}.md", record.routine.to_ascii_lowercase()));
         let mut source = fs::read_to_string(&path)
             .map_err(|_| policy(&format!("routine page is missing for {}", record.routine)))?;
@@ -1348,11 +1973,9 @@ fn write_scoped_outputs(root: &Path, outputs: &BTreeMap<String, Value>) -> Resul
         write_json(&public_api.join(name), &outputs[name])?;
     }
     for name in [
-        "documentation-quality.json",
         "documentation-repair-candidates.json",
         "family-page-index.json",
         "family-page-summary.json",
-        "argument-documentation-coverage.json",
     ] {
         write_json(&routine_evidence.join(name), &outputs[name])?;
     }
@@ -1372,28 +1995,17 @@ fn write_scoped_outputs(root: &Path, outputs: &BTreeMap<String, Value>) -> Resul
         &public_api.join("catalogue-sys-crosscheck-summary.md"),
         crosscheck_summary.as_bytes(),
     )?;
-    let quality = &outputs["documentation-quality.json"];
-    let mut quality_summary = String::from(
-        "# Routine documentation quality\n\nDocumentation quality is disposition-aware and never treats a one-line purpose as complete public documentation.\n\n| Quality level | Identities |\n| --- | ---: |\n",
-    );
-    if let Some(counts) = quality.get("counts").and_then(Value::as_object) {
-        for (level, count) in counts {
-            quality_summary.push_str(&format!(
-                "| `{level}` | {} |\n",
-                count.as_u64().unwrap_or_default()
-            ));
-        }
-    }
-    quality_summary.push_str(&format!(
-        "\n- Mangled candidates in the pre-existing coverage audit: {}\n- Candidates still requiring explicit review: {}\n",
-        quality["mangled_candidate_flags_before"].as_u64().unwrap_or_default(),
-        quality["mangled_candidate_flags_after"].as_u64().unwrap_or_default(),
-    ));
-    write_if_changed(
-        &routine_evidence.join("documentation-quality-summary.md"),
-        quality_summary.as_bytes(),
-    )?;
     Ok(())
+}
+
+/// These reports and their public-page contracts are owned by the semantic
+/// review generator.  They remain release-readiness inputs, not outputs of
+/// the older structural generator.
+fn semantic_review_owned_output(name: &str) -> bool {
+    matches!(
+        name,
+        "documentation-quality.json" | "argument-documentation-coverage.json"
+    )
 }
 
 fn remove_obsolete_outputs(root: &Path) -> Result<()> {
@@ -1565,11 +2177,98 @@ mod tests {
 
         let freshness = snapshot.freshness(root).expect("freshness");
         assert_eq!(freshness.changed_paths.len(), 2);
+        assert_eq!(freshness.missing_ownership_count, 1);
+        assert!(
+            freshness
+                .changes
+                .iter()
+                .any(|change| change.ownership_status == "missing")
+        );
         snapshot.restore(root).expect("restore");
         assert_eq!(
             fs::read_to_string(existing).expect("restored output"),
             "before\n"
         );
         assert!(!created.exists());
+    }
+
+    #[test]
+    fn ordering_only_json_drift_is_reported_without_being_accepted() {
+        let public = BTreeSet::new();
+        let change = classify_freshness_change(
+            Path::new("generated/release-readiness/documentation-quality.json"),
+            Some(br#"{"schema_id":"test","schema_version":"1","records":[{"routine":"A"},{"routine":"B"}]}"#),
+            Some(br#"{"schema_id":"test","schema_version":"1","records":[{"routine":"B"},{"routine":"A"}]}"#),
+            &public,
+        );
+        assert!(change.ordering_only);
+        assert_eq!(change.category, "ordering");
+        assert_eq!(change.change_kind, "ordering-only");
+        assert_eq!(change.risk, "medium");
+    }
+
+    #[test]
+    fn eol_only_drift_is_separated_from_semantic_drift() {
+        let change = classify_freshness_change(
+            Path::new("docs/reference/families/example.md"),
+            Some(b"# Example\n"),
+            Some(b"# Example\r\n"),
+            &BTreeSet::new(),
+        );
+        assert!(change.eol_only);
+        assert_eq!(change.category, "formatting/whitespace/EOL");
+        assert_eq!(change.change_kind, "formatting-only");
+        assert_eq!(change.risk, "low");
+    }
+
+    #[test]
+    fn canonical_safe_path_drift_is_critical_semantic_change() {
+        let public = BTreeSet::from(["TEST".to_owned()]);
+        let change = classify_freshness_change(
+            Path::new("docs/reference/routines/test.md"),
+            Some(b"Canonical Rust path: `slatec_sys::roots::test`\n"),
+            Some(b"Canonical Rust path: `slatec_sys::roots::scalar::test`\n"),
+            &public,
+        );
+        assert!(change.safe_path_changed);
+        assert_eq!(change.category, "safe-path/status classification");
+        assert_eq!(change.change_kind, "semantic");
+        assert_eq!(change.risk, "critical");
+    }
+
+    #[test]
+    fn schema_drift_is_critical_and_keeps_the_declared_owner() {
+        let change = classify_freshness_change(
+            Path::new("generated/release-readiness/documentation-quality.json"),
+            Some(br#"{"schema_id":"test","schema_version":"1"}"#),
+            Some(br#"{"schema_id":"test","schema_version":"2"}"#),
+            &BTreeSet::new(),
+        );
+        assert!(change.schema_changed);
+        assert_eq!(change.category, "generated inventories/indexes");
+        assert_eq!(change.risk, "critical");
+        assert_eq!(change.ownership_status, "declared");
+    }
+
+    #[test]
+    fn missing_output_owner_is_a_critical_diagnostic() {
+        let unknown = classify_freshness_change(
+            Path::new("generated/release-readiness/unregistered-output.json"),
+            Some(b"{}\n"),
+            Some(b"{\"changed\":true}\n"),
+            &BTreeSet::new(),
+        );
+        assert_eq!(unknown.generator_owner, "unrecognized-generator-output");
+        assert_eq!(unknown.ownership_status, "missing");
+        assert_eq!(unknown.risk, "critical");
+    }
+
+    #[test]
+    fn semantic_review_outputs_cannot_be_written_by_release_readiness() {
+        assert!(semantic_review_owned_output("documentation-quality.json"));
+        assert!(semantic_review_owned_output(
+            "argument-documentation-coverage.json"
+        ));
+        assert!(!semantic_review_owned_output("family-page-index.json"));
     }
 }
