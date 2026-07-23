@@ -151,6 +151,21 @@ struct Corrections {
 
 /// Generates all R1 raw API reports and rejects an inconsistent reviewed entry.
 pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
+    build(paths, true, true)
+}
+
+/// Regenerates only raw-API reports and reference-page status blocks, leaving
+/// reviewed declarations and probes to their explicit full generators.
+pub fn generate_reports(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
+    build(paths, true, false)
+}
+
+/// Builds inventory evidence and either writes it or compares it transactionally.
+fn build(
+    paths: RawApiPaths<'_>,
+    write_reports: bool,
+    write_source_outputs: bool,
+) -> Result<RawApiInventoryResult> {
     let catalogue_value = read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?;
     let catalogue = records(&catalogue_value, "catalogue")?;
     let interfaces = interfaces(&paths.ffi_dir.join("interface-inventory.json"))?;
@@ -596,9 +611,11 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 review_policy.source_manifest_sha256
             )));
         }
-        write_blas_module(paths.sys_dir, &output_records)?;
-        write_blas_canonical_path_tests(paths.sys_dir, &output_records)?;
-        write_blas_link_probe(paths.facade_dir, &output_records)?;
+        if write_source_outputs {
+            write_blas_module(paths.sys_dir, &output_records)?;
+            write_blas_canonical_path_tests(paths.sys_dir, &output_records)?;
+            write_blas_link_probe(paths.facade_dir, &output_records)?;
+        }
     }
     if let Some(review_policy) = &special_foundations_policy {
         let actual = special_foundations_api::source_manifest(&output_records);
@@ -608,8 +625,10 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 review_policy.source_manifest_sha256
             )));
         }
-        write_special_foundations_canonical_path_tests(paths.sys_dir, &output_records)?;
-        write_special_foundations_link_probe(paths.facade_dir, &output_records)?;
+        if write_source_outputs {
+            write_special_foundations_canonical_path_tests(paths.sys_dir, &output_records)?;
+            write_special_foundations_link_probe(paths.facade_dir, &output_records)?;
+        }
     }
     let airy_source_closure = if let Some(review_policy) = &airy_policy {
         let actual = airy_api::source_manifest(&output_records);
@@ -620,13 +639,15 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             )));
         }
         let closure = validate_airy_source_closure(paths.src_dir, &output_records)?;
-        write_airy_canonical_path_tests(paths.sys_dir, &output_records)?;
-        write_airy_link_probe(paths.facade_dir, &output_records)?;
+        if write_source_outputs {
+            write_airy_canonical_path_tests(paths.sys_dir, &output_records)?;
+            write_airy_link_probe(paths.facade_dir, &output_records)?;
+        }
         Some(closure)
     } else {
         None
     };
-    if special_foundations_policy.is_some() || airy_policy.is_some() {
+    if (special_foundations_policy.is_some() || airy_policy.is_some()) && write_source_outputs {
         write_special_module(paths.sys_dir, &output_records)?;
     }
     if let Some(review_policy) = &batch_d_policy {
@@ -710,9 +731,13 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "outputs":files.keys().collect::<Vec<_>>(),
         }))?,
     );
-    write_outputs(paths.output_dir, &files)?;
-    write_routine_page_statuses(paths.docs_dir, &output_records)?;
-    write_raw_coverage_page(paths.docs_dir, &coverage)?;
+    if write_reports {
+        write_outputs(paths.output_dir, &files)?;
+    } else {
+        validate_outputs(paths.output_dir, &files)?;
+    }
+    write_routine_page_statuses(paths.docs_dir, &output_records, write_reports)?;
+    write_raw_coverage_page(paths.docs_dir, &coverage, write_reports)?;
     Ok(RawApiInventoryResult {
         status: "success".to_owned(),
         identity_count: output_records.len(),
@@ -727,7 +752,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
 
 /// Regenerates and independently checks the committed R1 status model.
 pub fn validate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
-    let result = generate(paths)?;
+    let result = build(paths, false, false)?;
     let status = read_json(&result.output_dir.join("routine-status.json"))?;
     let records = records(&status, "raw-api status")?;
     if records.len() != result.identity_count {
@@ -2476,6 +2501,25 @@ fn write_outputs(root: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
     Ok(())
 }
 
+fn validate_outputs(root: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    for (name, expected) in files {
+        let path = root.join(name);
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "missing raw-API inventory output {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(policy(&format!(
+                "raw-API inventory output {} differs; regenerate it with generate-raw-api-inventory-reports",
+                path.display()
+            )));
+        }
+    }
+    Ok(())
+}
+
 fn write_blas_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let path = sys_dir.join("src").join("blas.rs");
     let rendered = blas_api::render_module(records);
@@ -2689,7 +2733,7 @@ const ROUTINE_STATUS_END: &str = "<!-- raw-api-status:end -->";
 const RAW_COVERAGE_START: &str = "<!-- raw-api-coverage:start -->";
 const RAW_COVERAGE_END: &str = "<!-- raw-api-coverage:end -->";
 
-fn write_raw_coverage_page(docs_dir: &Path, coverage: &Value) -> Result<()> {
+fn write_raw_coverage_page(docs_dir: &Path, coverage: &Value, write: bool) -> Result<()> {
     let path = docs_dir.join("reference").join("routine-coverage.md");
     let original = fs::read_to_string(&path)?;
     let count = |key: &str| {
@@ -2751,13 +2795,17 @@ fn write_raw_coverage_page(docs_dir: &Path, coverage: &Value) -> Result<()> {
         };
         format!("{original}{separator}{block}\n")
     };
-    if updated != original {
+    if updated != original && write {
         fs::write(path, updated)?;
+    } else if updated != original {
+        return Err(policy(
+            "raw API coverage page differs; regenerate it with generate-raw-api-inventory-reports",
+        ));
     }
     Ok(())
 }
 
-fn write_routine_page_statuses(docs_dir: &Path, records: &[Value]) -> Result<()> {
+fn write_routine_page_statuses(docs_dir: &Path, records: &[Value], write: bool) -> Result<()> {
     let pages = docs_dir.join("reference").join("routines");
     for record in records {
         let routine = field(record, "routine");
@@ -2785,8 +2833,12 @@ fn write_routine_page_statuses(docs_dir: &Path, records: &[Value]) -> Result<()>
             };
             format!("{original}{separator}{block}\n")
         };
-        if updated != original {
+        if updated != original && write {
             fs::write(path, updated)?;
+        } else if updated != original {
+            return Err(policy(&format!(
+                "raw API status for {routine} differs; regenerate it with generate-raw-api-inventory-reports"
+            )));
         }
     }
     Ok(())

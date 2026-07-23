@@ -111,3 +111,18 @@ Generate and validate the durable report with:
 cargo run -p slatec-tools --bin slatec-corpus -- generate-release-readiness-drift-report --offline
 cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness-drift-report --offline
 ```
+
+Raw Batch A, B, and C validation follows the same non-mutating principle: it
+recomputes report evidence and compares it with the committed files, while the
+semantic-documentation generator remains the sole owner of reviewed Rustdoc
+and canonical declaration fragments. The `generate-raw-batch-*-reports`
+commands refresh report-only evidence when an upstream inventory change makes
+it stale; full batch generators remain the explicit source/probe regeneration
+operation.
+
+The raw inventory, unique-FFI ownership, and public semantic-review validators
+apply that same transactional policy. Their report-only commands may refresh
+evidence, but a release gate never rewrites canonical declarations, private
+declaration owners, probes, routine pages, or Rustdoc to make stale output look
+valid. Full declaration ownership regeneration precedes semantic Rustdoc
+regeneration; documentation is attached only to canonical mathematical paths.

@@ -110,5 +110,7 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `not_tested`
 - Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
+- Safe-facade link test: `not_recorded`
+- Safe-facade runtime test: `not_recorded`
 - Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
 <!-- raw-api-status:end -->

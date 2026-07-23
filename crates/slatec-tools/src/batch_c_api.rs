@@ -91,6 +91,21 @@ struct Candidate {
 
 /// Generate complete Batch C classification, declarations, probes, and reports.
 pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
+    build(paths, true, true)
+}
+
+/// Regenerates only Batch C's report files, leaving reviewed declarations to
+/// their canonical semantic-documentation owner.
+pub fn generate_reports(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
+    build(paths, true, false)
+}
+
+/// Builds Batch C evidence and either writes it or compares it transactionally.
+fn build(
+    paths: BatchCPaths<'_>,
+    write_reports: bool,
+    write_source_outputs: bool,
+) -> Result<BatchCResult> {
     let catalogue = records(
         &read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?,
         "routine catalogue",
@@ -182,9 +197,11 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
     candidates.sort_by_key(|candidate| candidate.routine.clone());
     exclusions.sort_by_key(|record| field(record, "routine"));
     validate_candidates(&candidates)?;
-    write_canonical_modules(paths.sys_dir, &candidates)?;
-    write_compile_probes(paths.sys_dir, &candidates)?;
-    write_link_probes(paths.facade_dir, &candidates)?;
+    if write_source_outputs {
+        write_canonical_modules(paths.sys_dir, &candidates)?;
+        write_compile_probes(paths.sys_dir, &candidates)?;
+        write_link_probes(paths.facade_dir, &candidates)?;
+    }
 
     let count =
         |predicate: fn(&Value) -> bool| classifications.iter().filter(|r| predicate(r)).count();
@@ -310,7 +327,11 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
             "outputs":files.keys().collect::<Vec<_>>(),
         }))?,
     );
-    write_outputs(paths.output_dir, &files)?;
+    if write_reports {
+        write_outputs(paths.output_dir, &files)?;
+    } else {
+        validate_outputs(paths.output_dir, &files)?;
+    }
     Ok(BatchCResult {
         status: "success".to_owned(),
         retained_identities: catalogue.len(),
@@ -324,7 +345,7 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
 pub fn validate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
     let sys = paths.sys_dir.to_path_buf();
     let src = paths.src_dir.to_path_buf();
-    let result = generate(paths)?;
+    let result = build(paths, false, false)?;
     let value = read_json(&result.output_dir.join("batch-c-candidates.json"))?;
     let sys_features = fs::read_to_string(sys.join("Cargo.toml"))?;
     let src_features = fs::read_to_string(src.join("Cargo.toml"))?;
@@ -402,6 +423,25 @@ pub fn validate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
         }
     }
     Ok(result)
+}
+
+fn validate_outputs(output_dir: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    for (name, expected) in files {
+        let path = output_dir.join(name);
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "missing Batch C output {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(policy(&format!(
+                "Batch C output {} differs; regenerate it with generate-raw-batch-c-reports",
+                path.display()
+            )));
+        }
+    }
+    Ok(())
 }
 
 fn classify(

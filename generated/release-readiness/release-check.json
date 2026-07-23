@@ -51,6 +51,11 @@
       "status": "pass"
     },
     {
+      "check": "validate-release-readiness-drift-report",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
       "check": "validate-public-api-semantic-review",
       "exit_code": 0,
       "status": "pass"
@@ -62,6 +67,11 @@
     },
     {
       "check": "validate-package-contents",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-final-release-audit",
       "exit_code": 0,
       "status": "pass"
     },

@@ -52,6 +52,22 @@ struct Alias {
 }
 
 pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
+    build(root, output_dir, true, true)
+}
+
+/// Regenerates only ownership reports, leaving canonical declaration owners to
+/// the explicit full generator.
+pub fn generate_reports(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
+    build(root, output_dir, true, false)
+}
+
+/// Builds ownership evidence and either writes it or compares it transactionally.
+fn build(
+    root: &Path,
+    output_dir: &Path,
+    write_reports: bool,
+    write_source_outputs: bool,
+) -> Result<OwnershipResult> {
     let public = public_records(root)?;
     let sys_src = root.join("crates/slatec-sys/src");
     let original = scan_declarations(&sys_src)?;
@@ -139,7 +155,14 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
             removals.get(&relative).cloned().unwrap_or_default(),
         )?;
         let content = append_aliases(content, aliases.remove(&relative).unwrap_or_default());
-        write_if_changed(&path, content.as_bytes())?;
+        if write_source_outputs {
+            write_if_changed(&path, content.as_bytes())?;
+        } else if fs::read_to_string(&path).ok().as_deref() != Some(content.as_str()) {
+            return Err(policy(&format!(
+                "generated declaration owner {} differs; regenerate it with generate-ffi-declaration-ownership",
+                path.display()
+            )));
+        }
     }
     if !aliases.is_empty() {
         return Err(policy(&format!(
@@ -226,8 +249,6 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
         },
         "records":records,
     });
-    fs::create_dir_all(output_dir)?;
-    write_json(&output_dir.join("ffi-declaration-ownership.json"), &report)?;
     let summary = format!(
         "# FFI declaration ownership\n\n- Canonical public routines: {}\n- Native symbols audited: {}\n- Extern declarations before ownership consolidation: {}\n- Extern declarations after ownership consolidation: {}\n- Duplicate symbols before: {}\n- Duplicate symbols after: {}\n- Private declaration re-exports: {}\n- ABI conflicts: {}\n- Result: pass\n",
         public.len(),
@@ -239,10 +260,24 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
         generated_alias_count,
         abi_conflicts,
     );
-    write_if_changed(
-        &output_dir.join("ffi-declaration-ownership-summary.md"),
-        summary.as_bytes(),
-    )?;
+    let mut report_bytes = serde_json::to_vec_pretty(&report)?;
+    report_bytes.push(b'\n');
+    let mut summary_bytes = summary.into_bytes();
+    if !summary_bytes.ends_with(b"\n") {
+        summary_bytes.push(b'\n');
+    }
+    let files = BTreeMap::from([
+        ("ffi-declaration-ownership.json", report_bytes),
+        ("ffi-declaration-ownership-summary.md", summary_bytes),
+    ]);
+    if write_reports {
+        fs::create_dir_all(output_dir)?;
+        for (name, bytes) in &files {
+            write_if_changed(&output_dir.join(name), bytes)?;
+        }
+    } else {
+        validate_outputs(output_dir, &files)?;
+    }
     let semantic_hash = hash::bytes(&serde_json::to_vec(&report)?);
     Ok(OwnershipResult {
         status: "generated".to_owned(),
@@ -260,7 +295,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
 }
 
 pub fn validate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
-    let mut result = generate(root, output_dir)?;
+    let mut result = build(root, output_dir, false, false)?;
     let source = fs::read_to_string(root.join("crates/slatec-sys/src/lib.rs"))?;
     if !source.contains("#[path = \"generated_compat.rs\"]\nmod generated;") {
         return Err(policy(
@@ -289,6 +324,9 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
         }
     }
     let root_source = fs::read_to_string(root.join("crates/slatec-sys/src/lib.rs"))?;
+    // These are implementation owners or withdrawn compatibility namespaces.
+    // Reviewed B-spline and PP-form declarations are intentionally absent: they
+    // are canonical public raw modules backed by released safe APIs.
     for module in [
         "generated",
         "families",
@@ -298,8 +336,6 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
         "fishpack_pois3d",
         "banded",
         "pchip",
-        "bspline",
-        "piecewise_polynomial",
         "eigen",
     ] {
         if root_source.contains(&format!("pub mod {module}")) {
@@ -604,10 +640,23 @@ fn field(record: &Value, name: &str) -> String {
     record[name].as_str().unwrap_or_default().to_owned()
 }
 
-fn write_json(path: &Path, value: &Value) -> Result<()> {
-    let mut bytes = serde_json::to_vec_pretty(value)?;
-    bytes.push(b'\n');
-    write_if_changed(path, &bytes)
+fn validate_outputs(root: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    for (name, expected) in files {
+        let path = root.join(name);
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "missing FFI ownership output {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(policy(&format!(
+                "FFI ownership output {} differs; regenerate it with generate-ffi-declaration-ownership-reports",
+                path.display()
+            )));
+        }
+    }
+    Ok(())
 }
 
 fn write_if_changed(path: &Path, bytes: &[u8]) -> Result<()> {

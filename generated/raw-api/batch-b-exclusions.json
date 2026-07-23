@@ -3541,12 +3541,6 @@
       "source_hash": "49a5f0af772781ed5aaef4cb6677a9c47c94f799b41eb87a4b311cdf59efd278"
     },
     {
-      "reason": "artifact verification failed: DPFQAD callback F has no direct or forwarded call evidence",
-      "reason_code": "unresolved_callback_signature",
-      "routine": "DPFQAD",
-      "source_hash": "3dbf015a1070ed6bd3ca769e4868b658b372f7c509a356c21eb855bd3e7d4e17"
-    },
-    {
       "reason": "not a historically public callback driver",
       "reason_code": "non_public_role",
       "routine": "DPIGMR",
@@ -4301,12 +4295,6 @@
       "reason_code": "not_callback_bearing",
       "routine": "DSORT",
       "source_hash": "6b3a1232308b5bd002a77d69309a6215efc1e6542ec19f2978ec0a3181ba83e1"
-    },
-    {
-      "reason": "artifact verification failed: DSOS callback FNC has no direct or forwarded call evidence",
-      "reason_code": "unresolved_callback_signature",
-      "routine": "DSOS",
-      "source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21"
     },
     {
       "reason": "routine has no procedure dummy argument",
@@ -7331,12 +7319,6 @@
       "reason_code": "not_callback_bearing",
       "routine": "SORTH",
       "source_hash": "1dc66394189ed27b765a1474a5009ef341295272c78da713ab8f64d9941788f4"
-    },
-    {
-      "reason": "artifact verification failed: SOS callback FNC has no direct or forwarded call evidence",
-      "reason_code": "unresolved_callback_signature",
-      "routine": "SOS",
-      "source_hash": "30674f2d020dfae1fedeae3e7f1ed333f41e64a14036f1b3cbaa4452f9ae5e84"
     },
     {
       "reason": "routine has no procedure dummy argument",

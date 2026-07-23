@@ -154,14 +154,18 @@ fn run() -> Result<()> {
     if matches!(
         options.command.as_str(),
         "generate-raw-batch-a"
+            | "generate-raw-batch-a-reports"
             | "validate-raw-batch-a"
             | "generate-raw-batch-b"
             | "validate-raw-batch-b"
+            | "generate-raw-batch-b-reports"
             | "generate-raw-batch-c"
             | "validate-raw-batch-c"
+            | "generate-raw-batch-c-reports"
             | "generate-final-raw-api-disposition"
             | "validate-final-raw-api-disposition"
             | "generate-raw-api-inventory"
+            | "generate-raw-api-inventory-reports"
             | "validate-raw-api-inventory"
             | "generate-all-feature-coverage"
             | "validate-all-feature-coverage"
@@ -176,6 +180,7 @@ fn run() -> Result<()> {
             | "generate-rendered-rustdoc-audit"
             | "validate-rendered-rustdoc-audit"
             | "generate-ffi-declaration-ownership"
+            | "generate-ffi-declaration-ownership-reports"
             | "validate-unique-ffi-declarations"
             | "generate-public-surface-audit"
             | "validate-public-surface-terminology"
@@ -588,7 +593,7 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-raw-batch-a" | "validate-raw-batch-a" => {
+        "generate-raw-batch-a" | "generate-raw-batch-a-reports" | "validate-raw-batch-a" => {
             let paths = batch_a_api::BatchAPaths {
                 catalogue_dir: &PathBuf::from("generated/slatec-routines"),
                 ffi_dir: &PathBuf::from("generated/ffi"),
@@ -599,10 +604,10 @@ fn run() -> Result<()> {
                 facade_dir: &PathBuf::from("crates/slatec"),
                 output_dir: &options.output_dir,
             };
-            let result = if options.command == "generate-raw-batch-a" {
-                batch_a_api::generate(paths)?
-            } else {
-                batch_a_api::validate(paths)?
+            let result = match options.command.as_str() {
+                "generate-raw-batch-a" => batch_a_api::generate(paths)?,
+                "generate-raw-batch-a-reports" => batch_a_api::generate_reports(paths)?,
+                _ => batch_a_api::validate(paths)?,
             };
             println!(
                 "{}: {} retained identities, {} Batch A candidates ({})",
@@ -610,7 +615,7 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-raw-batch-b" | "validate-raw-batch-b" => {
+        "generate-raw-batch-b" | "generate-raw-batch-b-reports" | "validate-raw-batch-b" => {
             let source_cache_dir = source_cache_dir(&options)?;
             let paths = batch_b_api::BatchBPaths {
                 catalogue_dir: &PathBuf::from("generated/slatec-routines"),
@@ -623,10 +628,10 @@ fn run() -> Result<()> {
                 output_dir: &options.output_dir,
                 source_cache_dir: &source_cache_dir,
             };
-            let result = if options.command == "generate-raw-batch-b" {
-                batch_b_api::generate(paths)?
-            } else {
-                batch_b_api::validate(paths)?
+            let result = match options.command.as_str() {
+                "generate-raw-batch-b" => batch_b_api::generate(paths)?,
+                "generate-raw-batch-b-reports" => batch_b_api::generate_reports(paths)?,
+                _ => batch_b_api::validate(paths)?,
             };
             println!(
                 "{}: {} retained identities, {} Batch B candidates ({})",
@@ -634,7 +639,7 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-raw-batch-c" | "validate-raw-batch-c" => {
+        "generate-raw-batch-c" | "generate-raw-batch-c-reports" | "validate-raw-batch-c" => {
             let paths = batch_c_api::BatchCPaths {
                 catalogue_dir: &PathBuf::from("generated/slatec-routines"),
                 ffi_dir: &PathBuf::from("generated/ffi"),
@@ -645,10 +650,10 @@ fn run() -> Result<()> {
                 facade_dir: &PathBuf::from("crates/slatec"),
                 output_dir: &options.output_dir,
             };
-            let result = if options.command == "generate-raw-batch-c" {
-                batch_c_api::generate(paths)?
-            } else {
-                batch_c_api::validate(paths)?
+            let result = match options.command.as_str() {
+                "generate-raw-batch-c" => batch_c_api::generate(paths)?,
+                "generate-raw-batch-c-reports" => batch_c_api::generate_reports(paths)?,
+                _ => batch_c_api::validate(paths)?,
             };
             println!(
                 "{}: {} retained identities, {} Batch C candidates ({})",
@@ -656,7 +661,9 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-raw-api-inventory" | "validate-raw-api-inventory" => {
+        "generate-raw-api-inventory"
+        | "generate-raw-api-inventory-reports"
+        | "validate-raw-api-inventory" => {
             let catalogue_dir = PathBuf::from("generated/slatec-routines");
             let ffi_dir = PathBuf::from("generated/ffi");
             let ffi_validation_dir = PathBuf::from("generated/ffi-validation");
@@ -682,10 +689,10 @@ fn run() -> Result<()> {
                 docs_dir: &docs_dir,
                 output_dir: &options.output_dir,
             };
-            let result = if options.command == "generate-raw-api-inventory" {
-                raw_api_inventory::generate(paths)?
-            } else {
-                raw_api_inventory::validate(paths)?
+            let result = match options.command.as_str() {
+                "generate-raw-api-inventory" => raw_api_inventory::generate(paths)?,
+                "generate-raw-api-inventory-reports" => raw_api_inventory::generate_reports(paths)?,
+                _ => raw_api_inventory::validate(paths)?,
             };
             println!(
                 "{}: {} identities, {} reviewed ({})",
@@ -899,13 +906,19 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-ffi-declaration-ownership" | "validate-unique-ffi-declarations" => {
+        "generate-ffi-declaration-ownership"
+        | "generate-ffi-declaration-ownership-reports"
+        | "validate-unique-ffi-declarations" => {
             let root = PathBuf::from(".");
             let output = PathBuf::from("generated/public-api");
-            let result = if options.command == "generate-ffi-declaration-ownership" {
-                ffi_declaration_ownership::generate(&root, &output)?
-            } else {
-                ffi_declaration_ownership::validate(&root, &output)?
+            let result = match options.command.as_str() {
+                "generate-ffi-declaration-ownership" => {
+                    ffi_declaration_ownership::generate(&root, &output)?
+                }
+                "generate-ffi-declaration-ownership-reports" => {
+                    ffi_declaration_ownership::generate_reports(&root, &output)?
+                }
+                _ => ffi_declaration_ownership::validate(&root, &output)?,
             };
             println!(
                 "{}: {} public symbols, {} -> {} extern declarations, {} duplicate symbols remain ({})",
@@ -1631,7 +1644,7 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-release-readiness-drift-report|validate-release-readiness-drift-report|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|generate-linux-bundled-provider-evidence|validate-linux-bundled-provider-evidence|validate-linux-bundled-carrier|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-raw-api-inventory-reports|generate-raw-batch-a-reports|generate-raw-batch-b-reports|generate-raw-batch-c-reports|generate-ffi-declaration-ownership-reports|generate-release-readiness-drift-report|validate-release-readiness-drift-report|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|generate-linux-bundled-provider-evidence|validate-linux-bundled-provider-evidence|validate-linux-bundled-carrier|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
 }
 
 fn source_cache_dir(options: &Options) -> Result<PathBuf> {

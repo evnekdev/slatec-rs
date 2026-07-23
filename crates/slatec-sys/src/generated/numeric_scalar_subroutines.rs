@@ -262,33 +262,23 @@ unsafe extern "C" {
 
 // ffi-declaration-aliases:start
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotg`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotg.md"))]
 pub use crate::blas::level1::drotg;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotg`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotg.md"))]
 pub use crate::blas::level1::srotg;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dgaus8`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgaus8.md"))]
 pub use crate::quadrature::dgaus8;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::gaus8`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gaus8.md"))]
 pub use crate::quadrature::gaus8;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::algams`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/algams.md"))]
 pub use crate::special::algams;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dgamlm`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgamlm.md"))]
 pub use crate::special::dgamlm;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dlgams`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlgams.md"))]
 pub use crate::special::dlgams;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::gamlim`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gamlim.md"))]
 pub use crate::special::gamlim;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::zairy`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zairy.md"))]
 pub use crate::special::zairy;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::zbiry`."]
-#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbiry.md"))]
 pub use crate::special::zbiry;
 // ffi-declaration-aliases:end

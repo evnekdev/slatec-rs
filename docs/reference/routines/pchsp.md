@@ -106,5 +106,7 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime validation: `representative-family-coverage`
 - Safe-wrapper status: `slatec::pchip::PiecewiseCubicHermite::spline`
+- Safe-facade link test: `not_recorded`
+- Safe-facade runtime test: `not_recorded`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->
