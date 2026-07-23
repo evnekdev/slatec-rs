@@ -979,7 +979,7 @@ fn apply_attribute(
     locator: Value,
     _provider: &SelectedProvider,
     _statement: &LogicalStatement,
-    _diagnostics: &mut Vec<Diagnostic>,
+    _diagnostics: &mut [Diagnostic],
 ) {
     for item in split_top_level(items, ',') {
         let key = normalize_identifier(&item);

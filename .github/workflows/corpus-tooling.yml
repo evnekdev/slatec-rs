@@ -14,6 +14,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.85.0
         with:
           components: rustfmt, clippy
+      - name: Prepare the complete registry cache for offline package audits
+        # `cargo fetch` only guarantees the normal build graph. The independent
+        # package audit vendors every locked package, including audit-only
+        # optional dependency branches, so prepare that exact cache first.
+        run: cargo vendor --versioned-dirs target/ci-offline-package-vendor
       - run: cargo fmt --all -- --check
       - name: Validate repository guidance
         run: cargo run -p slatec-tools --bin slatec-corpus -- validate-agent-guidance

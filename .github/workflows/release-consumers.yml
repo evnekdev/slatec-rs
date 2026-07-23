@@ -38,13 +38,21 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@1.85.0
-      - name: Install the Rust GNU target and expose the linker only
+      - name: Install the Rust GNU target and prepare the offline package-audit cache
         shell: pwsh
         run: |
           rustup target add x86_64-pc-windows-gnu
           Add-Content $env:GITHUB_PATH 'C:\msys64\mingw64\bin'
+          # Hosted Visual Studio images can change their `link.exe` behaviour
+          # independently of the target under test. Build scripts run for the
+          # MSVC host, so use Rust's bundled compatible linker for that host.
+          $rustLld = Join-Path (rustc --print sysroot) 'lib\rustlib\x86_64-pc-windows-msvc\bin\rust-lld.exe'
+          if (-not (Test-Path -LiteralPath $rustLld)) { throw "rust-lld is unavailable at $rustLld" }
+          Add-Content $env:GITHUB_ENV "CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER=$rustLld"
           # This library workspace deliberately does not commit Cargo.lock.
-          cargo fetch
+          # Vendor the complete lockfile graph before the later offline
+          # registry and package-audit commands materialize isolated sources.
+          cargo vendor --versioned-dirs target/ci-offline-package-vendor
       - name: Package-first Windows GNU consumers without a Fortran compiler
         shell: pwsh
         env:
