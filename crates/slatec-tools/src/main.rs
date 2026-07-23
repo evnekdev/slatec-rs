@@ -167,6 +167,8 @@ fn run() -> Result<()> {
             | "validate-all-feature-coverage"
             | "generate-release-readiness"
             | "validate-release-readiness"
+            | "generate-release-readiness-drift-report"
+            | "validate-release-readiness-drift-report"
             | "generate-public-api-semantic-review"
             | "validate-public-api-semantic-review"
             | "generate-semantic-documentation-quality"
@@ -752,6 +754,32 @@ fn run() -> Result<()> {
                 result.canonical_paths,
                 result.family_count,
                 result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-release-readiness-drift-report" | "validate-release-readiness-drift-report" => {
+            let root = PathBuf::from(".");
+            let report = if options.command == "generate-release-readiness-drift-report" {
+                release_readiness::generate_drift_report(&root)?
+            } else {
+                release_readiness::validate_drift_report(&root)?
+            };
+            println!(
+                "{}: {} historical files; {} current transactional differences; {} ownerless outputs",
+                if options.command == "generate-release-readiness-drift-report" {
+                    "generated"
+                } else {
+                    "validated"
+                },
+                report["historical_reproduction"]["changed_file_count"]
+                    .as_u64()
+                    .unwrap_or_default(),
+                report["current_transactional_recomputation"]["changed_file_count"]
+                    .as_u64()
+                    .unwrap_or_default(),
+                report["current_transactional_recomputation"]["missing_ownership_count"]
+                    .as_u64()
+                    .unwrap_or_default(),
             );
             Ok(())
         }
@@ -1603,7 +1631,7 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|generate-linux-bundled-provider-evidence|validate-linux-bundled-provider-evidence|validate-linux-bundled-carrier|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-release-readiness-drift-report|validate-release-readiness-drift-report|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|generate-linux-bundled-provider-evidence|validate-linux-bundled-provider-evidence|validate-linux-bundled-carrier|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
 }
 
 fn source_cache_dir(options: &Options) -> Result<PathBuf> {

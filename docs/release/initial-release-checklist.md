@@ -47,6 +47,8 @@ gates remain mandatory even when this checklist has no local failure.
 - [ ] Portable `release-check` passes without publication credentials.
 - [ ] Same-root repeat generation is byte-identical.
 - [ ] Clean-root generation has the same semantic hashes and expected bytes.
+- [ ] Transactional release-readiness freshness passes without mutating the tree.
+- [ ] `generator-drift-analysis.json` reports zero current differences and zero ownerless outputs; its historical partition has been reviewed before accepting any regenerated evidence.
 - [ ] EOL audit and `git diff --check` pass after `git add --renormalize`.
 - [ ] CI is green, including package, documentation/export, taxonomy, terminology, and documentation-quality jobs.
 - [ ] Changelog is reviewed and the release commit is selected.
