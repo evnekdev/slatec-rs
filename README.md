@@ -24,6 +24,11 @@ blocked and fail precisely rather than falling back. `source-build` is
 offline-only and consumes a separately acquired, SHA-256-verified cache;
 ordinary Cargo builds never download SLATEC source from `build.rs`.
 
+The first-release target matrix, bundled-family scope, provider limitations,
+licensing/relinking information, publication order, and post-publication
+checks are collected in the
+[`0.1.0 publication guide`](docs/release/0.1.0-publication-guide.md).
+
 The safe Rust layer is `no_std`. `alloc` is an independent capability and does
 not require `std`; `std` enables `alloc`. The current GNU MinGW native backend
 is hosted and runtime-validated, not a bare-metal backend. See

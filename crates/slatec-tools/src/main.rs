@@ -16,6 +16,7 @@ use slatec_tools::extract;
 use slatec_tools::ffi_declaration_ownership;
 use slatec_tools::ffi_inventory;
 use slatec_tools::ffi_validation;
+use slatec_tools::final_release_audit;
 use slatec_tools::fishpack_ode_dae_bulk;
 use slatec_tools::full_corpus;
 use slatec_tools::linkage;
@@ -177,6 +178,8 @@ fn run() -> Result<()> {
             | "generate-public-surface-audit"
             | "validate-public-surface-terminology"
             | "validate-package-contents"
+            | "generate-final-release-audit"
+            | "validate-final-release-audit"
             | "generate-sos-dsos-evidence"
             | "validate-sos-dsos-evidence"
             | "generate-small-candidate-batch-review"
@@ -811,6 +814,24 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-final-release-audit" | "validate-final-release-audit" => {
+            let root = PathBuf::from(".");
+            let output = PathBuf::from("generated/release-readiness");
+            let result = if options.command == "generate-final-release-audit" {
+                final_release_audit::generate(&root, &output)?
+            } else {
+                final_release_audit::validate(&root, &output)?
+            };
+            println!(
+                "{}: {} packages, {} discrepancies, {} critical blockers ({})",
+                result.status,
+                result.packages,
+                result.discrepancies,
+                result.critical_blockers,
+                result.semantic_hash
+            );
+            Ok(())
+        }
         "validate-eol" => {
             let result = eol_audit::validate(
                 &PathBuf::from("."),
@@ -831,12 +852,16 @@ fn run() -> Result<()> {
             &PathBuf::from("generated/release-readiness/release-check.json"),
         ),
         "validate-registry-simulation" => {
-            let result = registry_simulation::validate(
-                &PathBuf::from("."),
-                &PathBuf::from(
+            let output = match std::env::var("SLATEC_REGISTRY_TARGET").as_deref() {
+                Ok("both") => PathBuf::from(
                     "generated/release-readiness/registry-only-downstream-simulation.json",
                 ),
-            )?;
+                Ok(target) => PathBuf::from("target/release-readiness-registry")
+                    .join(format!("registry-only-downstream-simulation-{target}.json")),
+                Err(_) => PathBuf::from("target/release-readiness-registry")
+                    .join("registry-only-downstream-simulation-host.json"),
+            };
+            let result = registry_simulation::validate(&PathBuf::from("."), &output)?;
             println!(
                 "{}: {} local packages, {} downstream configurations ({})",
                 result.status,

@@ -1,0 +1,188 @@
+{
+  "baseline_checks": [
+    {
+      "actual_count": 279,
+      "actual_sha256": "6666d550bca90b2735ed26179469538e44066abc4f22b61d989aa99831696a99",
+      "baseline": "generated/release-readiness/public-api-freeze-baseline.json",
+      "check": "slatec-rs.safe-public-api-freeze-baseline",
+      "classification": "independently-recomputed",
+      "expected_count": 279,
+      "expected_sha256": "6666d550bca90b2735ed26179469538e44066abc4f22b61d989aa99831696a99",
+      "input": "generated/safe-api/function-index.json",
+      "result": "pass"
+    },
+    {
+      "actual_count": 821,
+      "actual_sha256": "908f9923b94d62cfc021711ba9f868ff0844468d7fd4698de169eb3b80317948",
+      "baseline": "generated/release-readiness/raw-public-abi-freeze-baseline.json",
+      "check": "slatec-rs.raw-public-abi-freeze-baseline",
+      "classification": "independently-recomputed",
+      "expected_count": 821,
+      "expected_sha256": "908f9923b94d62cfc021711ba9f868ff0844468d7fd4698de169eb3b80317948",
+      "input": "generated/public-api/canonical-public-api.json",
+      "result": "pass"
+    },
+    {
+      "actual_count": 3,
+      "actual_sha256": "0103f1fccea4ce472c04d416b06f615a569f24f21a6a7d5f200c8edca128b61a",
+      "baseline": "generated/release-readiness/core-support-types-api-baseline.json",
+      "check": "slatec-rs.core-support-types-api-baseline",
+      "classification": "independently-recomputed",
+      "expected_count": 3,
+      "expected_sha256": "0103f1fccea4ce472c04d416b06f615a569f24f21a6a7d5f200c8edca128b61a",
+      "input": "crates/slatec-core/src/fortran.rs",
+      "result": "pass"
+    },
+    {
+      "actual_count": 2,
+      "baseline": "generated/release-readiness/carrier-metadata-api-baseline.json",
+      "carriers": [
+        {
+          "actual_bundle_manifest_sha256": "76c2b44727e48ff436beb19eb9c1b0df8b4e4d60fd9ff04a2ef6a641bee79755",
+          "actual_cargo_toml_sha256": "2ccac5e0eb55da9ef354070c110748854f0493fd874aff2a5d8ff9f541b2b347",
+          "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+          "expected_bundle_manifest_sha256": "76c2b44727e48ff436beb19eb9c1b0df8b4e4d60fd9ff04a2ef6a641bee79755",
+          "expected_cargo_toml_sha256": "2ccac5e0eb55da9ef354070c110748854f0493fd874aff2a5d8ff9f541b2b347",
+          "result": "pass"
+        },
+        {
+          "actual_bundle_manifest_sha256": "e6b802e8a1e90c4cee77c702f0ed950b76a1831d47068db91e11fe28e489d57a",
+          "actual_cargo_toml_sha256": "e859d76dc966451827b2e69a7e5eac338f191cb796a81c1c1efeccbec698d932",
+          "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+          "expected_bundle_manifest_sha256": "e6b802e8a1e90c4cee77c702f0ed950b76a1831d47068db91e11fe28e489d57a",
+          "expected_cargo_toml_sha256": "e859d76dc966451827b2e69a7e5eac338f191cb796a81c1c1efeccbec698d932",
+          "result": "pass"
+        }
+      ],
+      "check": "slatec-rs.carrier-metadata-api-baseline",
+      "classification": "independently-recomputed",
+      "expected_count": 2,
+      "result": "pass"
+    }
+  ],
+  "carrier_archive_checks": [
+    {
+      "artifacts": [
+        {
+          "actual_sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+          "actual_size_bytes": 385314,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+          "expected_size_bytes": 385314,
+          "path": "native/libslatec_bundle_accepted.a",
+          "result": "pass"
+        },
+        {
+          "actual_sha256": "517882166b14d3e5ff80844701b14f93a096f8c65feb4b9f3457f6d6fdb17899",
+          "actual_size_bytes": 494110,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "517882166b14d3e5ff80844701b14f93a096f8c65feb4b9f3457f6d6fdb17899",
+          "expected_size_bytes": null,
+          "path": "native/libslatec_bundle_gfortran.a",
+          "result": "pass"
+        },
+        {
+          "actual_sha256": "be8522775b1127933131fca1d425efa9848df3fa09b6807af78ebd7e063d9839",
+          "actual_size_bytes": 74934,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "be8522775b1127933131fca1d425efa9848df3fa09b6807af78ebd7e063d9839",
+          "expected_size_bytes": null,
+          "path": "native/libslatec_bundle_quadmath.a",
+          "result": "pass"
+        }
+      ],
+      "carrier": "slatec-bundled-x86_64-pc-windows-gnu",
+      "classification": "independently-recomputed",
+      "result": "pass",
+      "target": "x86_64-pc-windows-gnu"
+    },
+    {
+      "artifacts": [
+        {
+          "actual_sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+          "actual_size_bytes": 567600,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+          "expected_size_bytes": 567600,
+          "path": "native/libslatec_bundle_accepted.a",
+          "result": "pass"
+        },
+        {
+          "actual_sha256": "82f3c542725e644861ca62038a7ca990234bded1ba7b505374f19e32d0664a08",
+          "actual_size_bytes": 544228,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "82f3c542725e644861ca62038a7ca990234bded1ba7b505374f19e32d0664a08",
+          "expected_size_bytes": null,
+          "path": "native/libslatec_bundle_gfortran.a",
+          "result": "pass"
+        },
+        {
+          "actual_sha256": "09743d0f4636dcbbc8e65d55ee8d56b66ba63f30434c1453594fdec2f082f6b6",
+          "actual_size_bytes": 92682,
+          "archive_structure_inspection": "ar and nm completed successfully",
+          "expected_sha256": "09743d0f4636dcbbc8e65d55ee8d56b66ba63f30434c1453594fdec2f082f6b6",
+          "expected_size_bytes": null,
+          "path": "native/libslatec_bundle_quadmath.a",
+          "result": "pass"
+        }
+      ],
+      "carrier": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "classification": "independently-recomputed",
+      "result": "pass",
+      "target": "x86_64-unknown-linux-gnu"
+    }
+  ],
+  "critical_blockers": [
+    {
+      "blocker": "Stale release-readiness evidence",
+      "evidence": "825 generator-owned files differ after a transactional recomputation",
+      "owner": "maintainers",
+      "required_action": "Review the semantic documentation changes, correct any generator or authored-input defect, then regenerate and independently review the complete output. Do not accept a bulk regeneration merely to make this audit green.",
+      "severity": "critical"
+    }
+  ],
+  "decision": "The independent local audit found discrepancies or critical blockers. Publication is not permitted until they are resolved and the audit is regenerated; unobserved CI and publication outcomes remain manual release gates.",
+  "discrepancies": [
+    {
+      "changed_file_count": 825,
+      "gate": "committed release-readiness evidence freshness",
+      "reason": "the transactional generator recomputation differs from committed evidence",
+      "sample_changed_files": [
+        "docs/reference/routines/acosh.md",
+        "docs/reference/routines/ai.md",
+        "docs/reference/routines/aie.md",
+        "docs/reference/routines/albeta.md",
+        "docs/reference/routines/algams.md",
+        "docs/reference/routines/ali.md",
+        "docs/reference/routines/alngam.md",
+        "docs/reference/routines/alnrel.md",
+        "docs/reference/routines/asinh.md",
+        "docs/reference/routines/atanh.md",
+        "docs/reference/routines/avint.md",
+        "docs/reference/routines/bakvec.md",
+        "docs/reference/routines/balanc.md",
+        "docs/reference/routines/balbak.md",
+        "docs/reference/routines/bandr.md",
+        "docs/reference/routines/bandv.md",
+        "docs/reference/routines/besi.md",
+        "docs/reference/routines/besi0.md",
+        "docs/reference/routines/besi0e.md",
+        "docs/reference/routines/besi1.md"
+      ]
+    }
+  ],
+  "package_count": 6,
+  "package_size_evidence": "package-size-audit.json",
+  "publication_order": [
+    "slatec-bundled-x86_64-pc-windows-gnu",
+    "slatec-bundled-x86_64-unknown-linux-gnu",
+    "slatec-sys",
+    "slatec-core",
+    "slatec-src",
+    "slatec"
+  ],
+  "release_version": "0.1.0",
+  "schema_id": "slatec-rs.final-independent-release-audit",
+  "schema_version": "1.0.0",
+  "status": "fail"
+}

@@ -4,6 +4,11 @@ This checklist governs the coordinated `0.1.0` release candidate. It does not
 authorize publishing or tagging. Record exact command output and the selected
 release commit before checking an item.
 
+The package-first independent evidence, target matrix, publication scripts,
+and post-publication operations are in
+[`0.1.0-publication-guide.md`](0.1.0-publication-guide.md). Its manual release
+gates remain mandatory even when this checklist has no local failure.
+
 ## Public API and documentation
 
 - [ ] Canonical mathematical namespaces are finalized.
@@ -31,7 +36,7 @@ release commit before checking an item.
 
 - [ ] Coordinated version is finalized once; current candidate is `0.1.0`.
 - [ ] Every publishable manifest has complete crates.io metadata and version-plus-path workspace dependencies.
-- [ ] `validate-package-contents` passes for `slatec-sys`, `slatec-src`, `slatec-core`, and `slatec`.
+- [ ] `validate-package-contents` passes for both target carriers, `slatec-sys`, `slatec-core`, `slatec-src`, and `slatec`.
 - [ ] `cargo package` succeeds in publication-layer order.
 - [ ] Registry-only downstream simulation succeeds without workspace path dependencies.
 - [ ] Representative no-default, declaration-only, provider, narrow-safe-family, canonical-path, and compatibility-path features build.
@@ -45,8 +50,8 @@ release commit before checking an item.
 - [ ] EOL audit and `git diff --check` pass after `git add --renormalize`.
 - [ ] CI is green, including package, documentation/export, taxonomy, terminology, and documentation-quality jobs.
 - [ ] Changelog is reviewed and the release commit is selected.
-- [ ] crates.io ownership for all four publishable crates is confirmed.
-- [ ] Publication order is confirmed: `slatec-src` and `slatec-sys`, then `slatec-core`, then `slatec`.
+- [ ] crates.io ownership for all six publishable crates is confirmed.
+- [ ] Publication order is confirmed: Windows carrier, Linux carrier, `slatec-sys`, `slatec-core`, `slatec-src`, then `slatec`.
 - [ ] Tag name and signing policy are planned; no tag exists before successful publication.
 - [ ] Rollback and yank policy is understood; a yanked crate version cannot be reused.
 

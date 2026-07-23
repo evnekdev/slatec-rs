@@ -10,7 +10,7 @@ jobs:
   corpus-tooling:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@1.85.0
         with:
           components: rustfmt, clippy
@@ -25,6 +25,7 @@ jobs:
       - name: Validate package graph, contents, and LF-only text
         run: |
           cargo run -p slatec-tools --bin slatec-corpus -- validate-package-contents --offline
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-final-release-audit --offline
           cargo run -p slatec-tools --bin slatec-corpus -- validate-registry-simulation --offline
           cargo run -p slatec-tools --bin slatec-corpus -- validate-eol --offline
       - run: cargo clippy --workspace --all-targets -- -D warnings

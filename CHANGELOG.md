@@ -4,17 +4,21 @@ All notable changes to this workspace will be documented here. The project uses
 a coordinated pre-1.0 version while the raw ABI and selective safe facade are
 stabilized.
 
-## [Unreleased]
+## [0.1.0] - pending publication
+
+This section is the release candidate prepared for the first coordinated
+publication. No crate has been published and no tag has been created by this
+repository yet.
 
 ### Added
 
 - A layered architecture with provider-neutral raw declarations in
   `slatec-sys`, provider selection and native linking in `slatec-src`, shared
   contracts in `slatec-core`, and a selective safe facade in `slatec`.
-- Canonical mathematical paths for 812 public raw routines, backed by complete
+- Canonical mathematical paths for 821 public raw routines, backed by complete
   terminal dispositions for all 1,517 retained corpus identities.
-- One authoritative extern declaration per native symbol, with canonical and
-  deprecated compatibility paths implemented as re-exports of the same item.
+- One authoritative extern declaration per native symbol, with canonical paths
+  and compatibility re-exports implemented as the same item.
 - Generated routine, argument, family, documentation-quality,
   catalogue/export, declaration-ownership, feature/provider, and package
   readiness audits.
@@ -47,4 +51,4 @@ stabilized.
   source-rights review remains unresolved; source builds consume a separately
   acquired checksum-verified cache.
 
-[Unreleased]: https://github.com/evnekdev/slatec-rs/compare/master...HEAD
+[0.1.0]: https://github.com/evnekdev/slatec-rs/releases/tag/v0.1.0

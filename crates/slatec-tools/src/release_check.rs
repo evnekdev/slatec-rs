@@ -29,6 +29,7 @@ pub fn run(root: &Path, output_path: &Path) -> Result<()> {
         "validate-public-api-semantic-review",
         "validate-rendered-rustdoc-audit",
         "validate-package-contents",
+        "validate-final-release-audit",
         "validate-registry-simulation",
     ];
     let mut records = Vec::new();

@@ -1,14 +1,47 @@
 //! Registry-only downstream simulation using packaged crates and a local directory source.
+//!
+//! The portable CI jobs run the consumer for their own supported bundled
+//! target.  `SLATEC_REGISTRY_TARGET=both` is deliberately a local Windows
+//! convenience mode: it runs the Windows GNU consumer on the host and the
+//! Linux GNU consumer through WSL.  CI must not depend on WSL being present.
 
 use crate::error::{CorpusError, Result};
 use crate::hash;
 use flate2::read::GzDecoder;
 use serde_json::json;
 use std::collections::BTreeMap;
+use std::env;
 use std::fs;
+use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use tar::Archive;
+
+const WINDOWS_TARGET: &str = "x86_64-pc-windows-gnu";
+const LINUX_TARGET: &str = "x86_64-unknown-linux-gnu";
+const WINDOWS_CARRIER: &str = "slatec-bundled-x86_64-pc-windows-gnu";
+const LINUX_CARRIER: &str = "slatec-bundled-x86_64-unknown-linux-gnu";
+
+const ALL_BUNDLED_SOURCE: &str = r#"
+fn main() {
+    let mut total = 0.0_f64;
+    total += slatec::roots::find_root(
+        |x| x - 1.0,
+        slatec::roots::RootBracket { lower: 0.0, upper: 2.0 },
+        slatec::roots::RootOptions::default(),
+    ).expect("FZERO").estimate;
+    total += slatec::special::airy::airy_ai(0.0).expect("Airy");
+    total += slatec::special::bessel::bessel_j0(1.0).expect("Bessel");
+    total += slatec::special::gamma::beta(0.5, 0.5).expect("beta");
+    total += slatec::special::elementary::log1p(0.5).expect("elementary");
+    total += slatec::special::error_functions::erf(0.5).expect("error");
+    total += slatec::special::gamma::gamma(0.5).expect("gamma");
+    total += slatec::special::integrals::exponential_integral_e1(1.0).expect("integral");
+    total += slatec::polynomials::chebyshev::chebyshev_series(0.0, &[1.0]).expect("polynomial");
+    total += slatec::special::scalar_expanded::spence_integral(0.5).expect("scalar");
+    println!("{total}");
+}
+"#;
 
 #[derive(Clone, Debug, serde::Serialize)]
 pub struct RegistrySimulationResult {
@@ -19,19 +52,97 @@ pub struct RegistrySimulationResult {
     pub output_path: PathBuf,
 }
 
+#[derive(Clone, Copy)]
+enum RequestedTarget {
+    Windows,
+    Linux,
+    Both,
+}
+
+impl RequestedTarget {
+    fn parse() -> Result<Self> {
+        match env::var("SLATEC_REGISTRY_TARGET")
+            .unwrap_or_else(|_| "host".to_owned())
+            .as_str()
+        {
+            "host" => {
+                if cfg!(windows) {
+                    Ok(Self::Windows)
+                } else if cfg!(target_os = "linux") {
+                    Ok(Self::Linux)
+                } else {
+                    Err(policy(
+                        "registry simulation host mode supports Windows or Linux only; set SLATEC_REGISTRY_TARGET explicitly",
+                    ))
+                }
+            }
+            "windows" => Ok(Self::Windows),
+            "linux" => Ok(Self::Linux),
+            "both" => Ok(Self::Both),
+            value => Err(policy(&format!(
+                "unknown SLATEC_REGISTRY_TARGET `{value}`; expected host, windows, linux, or both"
+            ))),
+        }
+    }
+
+    fn name(self) -> &'static str {
+        match self {
+            Self::Windows => "windows",
+            Self::Linux => "linux",
+            Self::Both => "both",
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+enum ConsumerExecutor {
+    Host,
+    Wsl,
+}
+
+impl ConsumerExecutor {
+    fn name(self) -> &'static str {
+        match self {
+            Self::Host => "host",
+            Self::Wsl => "wsl",
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+struct Consumer {
+    name: &'static str,
+    dependency: &'static str,
+    source: &'static str,
+    target: Option<&'static str>,
+    run: bool,
+    executor: ConsumerExecutor,
+}
+
 pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationResult> {
+    let target = RequestedTarget::parse()?;
+    if matches!(target, RequestedTarget::Windows) && !cfg!(windows) {
+        return Err(policy("Windows registry simulation must run on Windows"));
+    }
+    if matches!(target, RequestedTarget::Linux) && !cfg!(target_os = "linux") {
+        return Err(policy("Linux registry simulation must run on Linux"));
+    }
+    if matches!(target, RequestedTarget::Both) && !cfg!(windows) {
+        return Err(policy(
+            "the cross-target `both` registry simulation is a Windows+WSL local mode; run target-specific checks in CI",
+        ));
+    }
+
     let canonical_root = root.canonicalize()?;
     let root = canonical_root.as_path();
-    let simulation = root.join("target/release-readiness-registry");
+    let simulation_parent = root.join("target/release-readiness-registry");
     let target_root = root.join("target");
-    if !simulation.starts_with(&target_root) {
+    if !simulation_parent.starts_with(&target_root) {
         return Err(policy(
             "registry simulation escaped the workspace target directory",
         ));
     }
-    if simulation.exists() {
-        fs::remove_dir_all(&simulation)?;
-    }
+    let simulation = create_simulation_directory(&simulation_parent)?;
     let vendor = simulation.join("vendor");
     fs::create_dir_all(&vendor)?;
     run(
@@ -42,27 +153,17 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             .env("CARGO_NET_OFFLINE", "true"),
         "cargo vendor",
     )?;
-    let source_config = format!(
-        "[source.crates-io]\nreplace-with = \"local-release-vendor\"\n\n[source.local-release-vendor]\ndirectory = {:?}\n\n[net]\noffline = true\n",
-        vendor.to_string_lossy()
-    );
+    let local_source_config = source_config(&vendor);
     let cargo_home = simulation.join("cargo-home");
     fs::create_dir_all(&cargo_home)?;
-    fs::write(cargo_home.join("config.toml"), &source_config)?;
-    let wsl_cargo_home = simulation.join("wsl-cargo-home");
-    fs::create_dir_all(&wsl_cargo_home)?;
-    let wsl_source_config = format!(
-        "[source.crates-io]\nreplace-with = \"local-release-vendor\"\n\n[source.local-release-vendor]\ndirectory = \"{}\"\n\n[net]\noffline = true\n",
-        wsl_path(&vendor)?
-    );
-    fs::write(wsl_cargo_home.join("config.toml"), &wsl_source_config)?;
+    fs::write(cargo_home.join("config.toml"), &local_source_config)?;
 
     let packages = [
+        WINDOWS_CARRIER,
+        LINUX_CARRIER,
         "slatec-sys",
-        "slatec-bundled-x86_64-pc-windows-gnu",
-        "slatec-bundled-x86_64-unknown-linux-gnu",
-        "slatec-src",
         "slatec-core",
+        "slatec-src",
         "slatec",
     ];
     for package in packages {
@@ -92,8 +193,104 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
 
     let cargo_config = simulation.join(".cargo/config.toml");
     fs::create_dir_all(cargo_config.parent().expect("config parent"))?;
-    fs::write(&cargo_config, source_config)?;
+    fs::write(&cargo_config, &local_source_config)?;
 
+    let consumer_root = simulation.join("consumers");
+    let mut records = generic_consumers(&consumer_root)?;
+    match target {
+        RequestedTarget::Windows => run_target_consumers(
+            &consumer_root,
+            WINDOWS_TARGET,
+            WINDOWS_CARRIER,
+            ConsumerExecutor::Host,
+            &mut records,
+        )?,
+        RequestedTarget::Linux => run_target_consumers(
+            &consumer_root,
+            LINUX_TARGET,
+            LINUX_CARRIER,
+            ConsumerExecutor::Host,
+            &mut records,
+        )?,
+        RequestedTarget::Both => {
+            run_target_consumers(
+                &consumer_root,
+                WINDOWS_TARGET,
+                WINDOWS_CARRIER,
+                ConsumerExecutor::Host,
+                &mut records,
+            )?;
+            let wsl_cargo_home = simulation.join("wsl-cargo-home");
+            fs::create_dir_all(&wsl_cargo_home)?;
+            let wsl_source_config = source_config(&PathBuf::from(wsl_path(&vendor)?));
+            fs::write(wsl_cargo_home.join("config.toml"), &wsl_source_config)?;
+            run_target_consumers_with_wsl(
+                &consumer_root,
+                LINUX_CARRIER,
+                &wsl_cargo_home,
+                &wsl_source_config,
+                &mut records,
+            )?;
+        }
+    }
+    let report = json!({
+        "schema_id":"slatec-rs.registry-only-downstream-simulation",
+        "schema_version":"2.0.0",
+        "method":"cargo package archives installed into a Cargo directory source together with vendored registry dependencies; bundled consumers set SLATEC_GFORTRAN to an invalid executable and clear source/system configuration",
+        "execution_target":target.name(),
+        "local_packages":packages,
+        "downstream_configurations":records,
+        "workspace_path_dependencies":0,
+        "result":"pass",
+    });
+    let mut bytes = serde_json::to_vec_pretty(&report)?;
+    bytes.push(b'\n');
+    if let Some(parent) = output_path.parent() {
+        fs::create_dir_all(parent)?;
+    }
+    fs::write(output_path, &bytes)?;
+    Ok(RegistrySimulationResult {
+        status: "validated".to_owned(),
+        local_packages: packages.len(),
+        downstream_configurations: report["downstream_configurations"]
+            .as_array()
+            .map_or(0, Vec::len),
+        semantic_hash: hash::bytes(&bytes),
+        output_path: output_path.to_path_buf(),
+    })
+}
+
+/// Creates a private, ignored working directory for one registry rehearsal.
+///
+/// Do not remove the previous shared directory here.  Windows file browsers,
+/// virus scanners, and interrupted Cargo commands can retain a handle inside
+/// it briefly; deleting it made the next validation fail with `os error 32`.
+/// A process-unique directory keeps every invocation isolated and leaves only
+/// disposable files below the already ignored `target/` tree.
+fn create_simulation_directory(parent: &Path) -> Result<PathBuf> {
+    fs::create_dir_all(parent)?;
+    let process = std::process::id();
+    for attempt in 0..1024_u32 {
+        let candidate = parent.join(format!("run-{process}-{attempt}"));
+        match fs::create_dir(&candidate) {
+            Ok(()) => return Ok(candidate),
+            Err(error) if error.kind() == ErrorKind::AlreadyExists => continue,
+            Err(error) => return Err(error.into()),
+        }
+    }
+    Err(policy(
+        "could not allocate an isolated registry-simulation directory after 1,024 attempts",
+    ))
+}
+
+fn source_config(vendor: &Path) -> String {
+    format!(
+        "[source.crates-io]\nreplace-with = \"local-release-vendor\"\n\n[source.local-release-vendor]\ndirectory = {:?}\n\n[net]\noffline = true\n",
+        vendor.to_string_lossy()
+    )
+}
+
+fn generic_consumers(consumer_root: &Path) -> Result<Vec<serde_json::Value>> {
     let configurations = [
         Consumer {
             name: "raw-no-default",
@@ -135,106 +332,314 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             run: false,
             executor: ConsumerExecutor::Host,
         },
+    ];
+    let mut records = Vec::new();
+    for consumer in configurations {
+        execute_consumer(consumer_root, consumer, None)?;
+        records.push(record(consumer, "pass"));
+    }
+    Ok(records)
+}
+
+fn run_target_consumers(
+    consumer_root: &Path,
+    target: &'static str,
+    carrier: &'static str,
+    executor: ConsumerExecutor,
+    records: &mut Vec<serde_json::Value>,
+) -> Result<()> {
+    let prefix = if target == WINDOWS_TARGET {
+        "windows"
+    } else {
+        "linux"
+    };
+    let single = Consumer {
+        name: if target == WINDOWS_TARGET {
+            "safe-bundled-elementary-windows"
+        } else {
+            "safe-bundled-elementary-linux"
+        },
+        dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
+        source: "fn main() { println!(\"{}\", slatec::special::elementary::log1p(0.5_f64).expect(\"finite input\")); }\n",
+        target: Some(target),
+        run: true,
+        executor,
+    };
+    let all = Consumer {
+        name: if target == WINDOWS_TARGET {
+            "safe-bundled-all-families-windows"
+        } else {
+            "safe-bundled-all-families-linux"
+        },
+        dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"roots-scalar\", \"special\"] }",
+        source: ALL_BUNDLED_SOURCE,
+        target: Some(target),
+        run: true,
+        executor,
+    };
+    for consumer in [single, all] {
+        execute_consumer(consumer_root, consumer, None)?;
+        records.push(record(consumer, "pass"));
+    }
+    let system = Consumer {
+        name: if target == WINDOWS_TARGET {
+            "system-provider-compile-windows"
+        } else {
+            "system-provider-compile-linux"
+        },
+        dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"system\", \"special-elementary\"] }",
+        source: "fn main() { let _ = slatec::special::elementary::log1p(0.5_f64); }\n",
+        target: Some(target),
+        run: false,
+        executor,
+    };
+    let native = consumer_root
+        .ancestors()
+        .nth(1)
+        .expect("simulation root")
+        .join("vendor")
+        .join(format!("{carrier}-0.1.0/native"));
+    let system_runtime = consumer_root
+        .ancestors()
+        .nth(1)
+        .expect("simulation root")
+        .join(format!("system-runtime-{prefix}"));
+    fs::create_dir_all(&system_runtime)?;
+    for (source, destination) in [
+        ("libslatec_bundle_gfortran.a", "libgfortran.a"),
+        ("libslatec_bundle_quadmath.a", "libquadmath.a"),
+    ] {
+        fs::copy(native.join(source), system_runtime.join(destination))?;
+    }
+    let system_environment = [
+        ("SLATEC_SYSTEM_LIB_DIR", native.clone()),
+        ("SLATEC_SYSTEM_RUNTIME_LIB_DIR", system_runtime),
+    ];
+    execute_consumer(consumer_root, system, Some(&system_environment))?;
+    records.push(record(system, "pass"));
+    let unavailable = Consumer {
+        name: if target == WINDOWS_TARGET {
+            "unsupported-bundled-family-windows"
+        } else {
+            "unsupported-bundled-family-linux"
+        },
+        dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"quadrature-basic\"] }",
+        source: "fn main() {}\n",
+        target: Some(target),
+        run: false,
+        executor,
+    };
+    execute_expected_failure(
+        consumer_root,
+        unavailable,
+        "bundled SLATEC provider has no redistributable archive",
+    )?;
+    records.push(json!({
+        "configuration":unavailable.name,
+        "target":target,
+        "executor":executor.name(),
+        "workspace_path_dependencies":0,
+        "expected_diagnostic":"bundled SLATEC provider has no redistributable archive",
+        "result":"expected-failure-observed",
+    }));
+    if target == WINDOWS_TARGET && matches!(executor, ConsumerExecutor::Host) {
+        let unsupported_target = Consumer {
+            name: "unsupported-bundled-target-windows-msvc",
+            dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
+            source: "fn main() {}\n",
+            target: Some("x86_64-pc-windows-msvc"),
+            run: false,
+            executor: ConsumerExecutor::Host,
+        };
+        execute_expected_failure(
+            consumer_root,
+            unsupported_target,
+            "The bundled SLATEC provider does not support",
+        )?;
+        records.push(json!({
+            "configuration":unsupported_target.name,
+            "target":"x86_64-pc-windows-msvc",
+            "executor":executor.name(),
+            "workspace_path_dependencies":0,
+            "expected_diagnostic":"The bundled SLATEC provider does not support",
+            "result":"expected-failure-observed",
+        }));
+    } else {
+        records.push(json!({
+            "configuration":format!("unsupported-target-diagnostic-{prefix}"),
+            "target":"x86_64-pc-windows-msvc",
+            "expected_diagnostic":"The bundled SLATEC provider does not support",
+            "executor":executor.name(),
+            "workspace_path_dependencies":0,
+            "result":"manual-target-toolchain-gate",
+        }));
+    }
+    records.push(json!({
+        "configuration":format!("source-build-{prefix}"),
+        "target":target,
+        "executor":executor.name(),
+        "workspace_path_dependencies":0,
+        "result":"manual-release-gate",
+        "reason":"requires an explicitly acquired checksum-verified source cache and a matching GNU Fortran toolchain; it is not silently substituted by bundled consumers",
+    }));
+    Ok(())
+}
+
+fn run_target_consumers_with_wsl(
+    consumer_root: &Path,
+    carrier: &'static str,
+    cargo_home: &Path,
+    source_config: &str,
+    records: &mut Vec<serde_json::Value>,
+) -> Result<()> {
+    let consumers = [
         Consumer {
-            name: "safe-bundled-elementary",
+            name: "safe-bundled-elementary-linux",
             dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
             source: "fn main() { println!(\"{}\", slatec::special::elementary::log1p(0.5_f64).expect(\"finite input\")); }\n",
-            target: Some("x86_64-pc-windows-gnu"),
+            target: Some(LINUX_TARGET),
             run: true,
-            executor: ConsumerExecutor::Host,
+            executor: ConsumerExecutor::Wsl,
         },
         Consumer {
-            name: "safe-bundled-bessel-linux",
-            dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-bessel\"] }",
-            source: "fn main() { println!(\"{}\", slatec::special::bessel::bessel_j0(1.0_f64).expect(\"finite input\")); }\n",
-            target: Some("x86_64-unknown-linux-gnu"),
+            name: "safe-bundled-all-families-linux",
+            dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"roots-scalar\", \"special\"] }",
+            source: ALL_BUNDLED_SOURCE,
+            target: Some(LINUX_TARGET),
             run: true,
             executor: ConsumerExecutor::Wsl,
         },
     ];
-    let consumer_root = simulation.join("consumers");
-    let mut records = Vec::new();
-    for consumer in configurations {
-        let dir = consumer_root.join(consumer.name);
-        fs::create_dir_all(dir.join("src"))?;
-        fs::write(
-            dir.join("Cargo.toml"),
-            format!(
-                "[package]\nname = \"{}\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies]\n{}\n",
-                consumer.name, consumer.dependency
-            ),
+    for consumer in consumers {
+        write_consumer(consumer_root, consumer)?;
+        run_wsl_consumer(
+            &consumer_root.join(consumer.name),
+            cargo_home,
+            source_config,
+            consumer.name,
         )?;
-        fs::write(dir.join("src/main.rs"), consumer.source)?;
-        match consumer.executor {
-            ConsumerExecutor::Host => {
-                let mut command = Command::new("cargo");
-                command
-                    .arg(if consumer.run { "run" } else { "check" })
-                    .arg("--offline");
-                if let Some(target) = consumer.target {
-                    command.args(["--target", target]);
-                }
-                run(&dir, &mut command, consumer.name)?;
-            }
-            ConsumerExecutor::Wsl => {
-                run_wsl_consumer(&dir, &wsl_cargo_home, &wsl_source_config, consumer.name)?
-            }
-        }
-        records.push(json!({
-            "configuration":consumer.name,
-            "dependency":consumer.dependency,
-            "target":consumer.target,
-            "executor":consumer.executor.name(),
-            "workspace_path_dependencies":0,
-            "result":"pass",
-        }));
+        records.push(record(consumer, "pass"));
     }
-    let report = json!({
-        "schema_id":"slatec-rs.registry-only-downstream-simulation",
-        "schema_version":"1.0.0",
-        "method":"cargo package archives installed into a Cargo directory source together with vendored registry dependencies",
-        "local_packages":packages,
-        "downstream_configurations":records,
+    records.push(json!({
+        "configuration":"system-provider-compile-linux",
+        "target":LINUX_TARGET,
+        "executor":"wsl",
         "workspace_path_dependencies":0,
-        "result":"pass",
-    });
-    let mut bytes = serde_json::to_vec_pretty(&report)?;
-    bytes.push(b'\n');
-    if let Some(parent) = output_path.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    fs::write(output_path, &bytes)?;
-    Ok(RegistrySimulationResult {
-        status: "validated".to_owned(),
-        local_packages: packages.len(),
-        downstream_configurations: records.len(),
-        semantic_hash: hash::bytes(&bytes),
-        output_path: output_path.to_path_buf(),
-    })
+        "result":"manual-release-gate",
+        "reason":format!("the cross-target helper does not pass Windows paths to the packaged Linux system provider; run SLATEC_REGISTRY_TARGET=linux on a Linux host"),
+        "carrier":carrier,
+    }));
+    Ok(())
 }
 
-struct Consumer {
-    name: &'static str,
-    dependency: &'static str,
-    source: &'static str,
-    target: Option<&'static str>,
-    run: bool,
-    executor: ConsumerExecutor,
-}
-
-#[derive(Clone, Copy)]
-enum ConsumerExecutor {
-    Host,
-    Wsl,
-}
-
-impl ConsumerExecutor {
-    fn name(self) -> &'static str {
-        match self {
-            Self::Host => "host",
-            Self::Wsl => "wsl",
+fn execute_consumer(
+    consumer_root: &Path,
+    consumer: Consumer,
+    extra_environment: Option<&[(&str, PathBuf)]>,
+) -> Result<()> {
+    let dir = write_consumer(consumer_root, consumer)?;
+    match consumer.executor {
+        ConsumerExecutor::Host => {
+            let mut command = Command::new("cargo");
+            command
+                .arg(if consumer.run { "run" } else { "check" })
+                .arg("--offline")
+                .env("CARGO_NET_OFFLINE", "true")
+                .env(
+                    "SLATEC_GFORTRAN",
+                    "__slatec_no_gfortran_at_consumer_build_time__",
+                )
+                .env_remove("SLATEC_SOURCE_CACHE");
+            if let Some(target) = consumer.target {
+                command.args(["--target", target]);
+            }
+            if let Some(environment) = extra_environment {
+                for (key, value) in environment {
+                    command.env(key, value);
+                }
+                command.env("SLATEC_SYSTEM_LIB_NAME", "slatec_bundle_accepted");
+            } else {
+                command
+                    .env_remove("SLATEC_SYSTEM_LIB_DIR")
+                    .env_remove("SLATEC_SYSTEM_RUNTIME_LIB_DIR")
+                    .env_remove("SLATEC_SYSTEM_LIB_NAME");
+            }
+            run(&dir, &mut command, consumer.name)
         }
+        ConsumerExecutor::Wsl => Err(policy(
+            "WSL consumers must be dispatched by run_target_consumers_with_wsl",
+        )),
     }
+}
+
+fn execute_expected_failure(
+    consumer_root: &Path,
+    consumer: Consumer,
+    expected_diagnostic: &str,
+) -> Result<()> {
+    if !matches!(consumer.executor, ConsumerExecutor::Host) {
+        return Err(policy(
+            "WSL expected-failure consumers must be dispatched through a host target validation",
+        ));
+    }
+    let dir = write_consumer(consumer_root, consumer)?;
+    let mut command = Command::new("cargo");
+    command
+        .args(["check", "--offline"])
+        .env("CARGO_NET_OFFLINE", "true")
+        .env(
+            "SLATEC_GFORTRAN",
+            "__slatec_no_gfortran_at_consumer_build_time__",
+        )
+        .env_remove("SLATEC_SOURCE_CACHE")
+        .env_remove("SLATEC_SYSTEM_LIB_DIR")
+        .env_remove("SLATEC_SYSTEM_RUNTIME_LIB_DIR")
+        .env_remove("SLATEC_SYSTEM_LIB_NAME");
+    if let Some(target) = consumer.target {
+        command.args(["--target", target]);
+    }
+    let output = command.current_dir(&dir).output()?;
+    if output.status.success() {
+        return Err(policy(&format!(
+            "{} unexpectedly succeeded; expected `{expected_diagnostic}`",
+            consumer.name
+        )));
+    }
+    let detail = String::from_utf8_lossy(&output.stderr);
+    if detail.contains(expected_diagnostic) {
+        Ok(())
+    } else {
+        Err(policy(&format!(
+            "{} failed with the wrong diagnostic; expected `{expected_diagnostic}`\nstderr:\n{}",
+            consumer.name,
+            detail.trim()
+        )))
+    }
+}
+
+fn write_consumer(consumer_root: &Path, consumer: Consumer) -> Result<PathBuf> {
+    let dir = consumer_root.join(consumer.name);
+    fs::create_dir_all(dir.join("src"))?;
+    fs::write(
+        dir.join("Cargo.toml"),
+        format!(
+            "[package]\nname = \"{}\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies]\n{}\n",
+            consumer.name, consumer.dependency
+        ),
+    )?;
+    fs::write(dir.join("src/main.rs"), consumer.source)?;
+    Ok(dir)
+}
+
+fn record(consumer: Consumer, result: &str) -> serde_json::Value {
+    json!({
+        "configuration":consumer.name,
+        "dependency":consumer.dependency,
+        "target":consumer.target,
+        "executor":consumer.executor.name(),
+        "workspace_path_dependencies":0,
+        "result":result,
+    })
 }
 
 fn write_directory_checksum(directory: &Path, package_hash: &str) -> Result<()> {
@@ -288,7 +693,7 @@ fn run_wsl_consumer(
     let directory = wsl_path(directory)?;
     let cargo_home = wsl_path(cargo_home)?;
     let script = format!(
-        "env -u SLATEC_SOURCE_CACHE -u SLATEC_SYSTEM_LIB_DIR -u SLATEC_SYSTEM_RUNTIME_LIB_DIR -u SLATEC_GFORTRAN CARGO_HOME={} CARGO_NET_OFFLINE=true cargo run --offline --target x86_64-unknown-linux-gnu",
+        "env -u SLATEC_SOURCE_CACHE -u SLATEC_SYSTEM_LIB_DIR -u SLATEC_SYSTEM_RUNTIME_LIB_DIR SLATEC_GFORTRAN=__slatec_no_gfortran_at_consumer_build_time__ CARGO_HOME={} CARGO_NET_OFFLINE=true cargo run --offline --target {LINUX_TARGET}",
         bash_quote(&cargo_home),
     );
     let output = Command::new("wsl.exe")
@@ -327,4 +732,23 @@ fn bash_quote(value: &str) -> String {
 
 fn policy(message: &str) -> CorpusError {
     CorpusError::Policy(message.to_owned())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn simulation_runs_receive_private_target_directories() {
+        let directory = tempfile::tempdir().expect("temporary directory");
+        let parent = directory.path().join("target/release-readiness-registry");
+        let first = create_simulation_directory(&parent).expect("first directory");
+        let second = create_simulation_directory(&parent).expect("second directory");
+
+        assert!(first.starts_with(&parent));
+        assert!(second.starts_with(&parent));
+        assert_ne!(first, second);
+        assert!(first.is_dir());
+        assert!(second.is_dir());
+    }
 }
