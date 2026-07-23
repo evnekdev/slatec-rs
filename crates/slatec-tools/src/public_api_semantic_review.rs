@@ -4724,6 +4724,30 @@ fn policy(message: &str) -> CorpusError {
 mod tests {
     use super::*;
 
+    /// Returns optional external source evidence without compiling it into the
+    /// tooling crate. The accepted SLATEC source cache is intentionally not a
+    /// repository artifact; source-backed regressions run when it is available.
+    fn source_backed_fixture(relative: &str) -> Option<Vec<u8>> {
+        const EVIDENCE_PREFIX: &str = "evidence/full-corpus/audit-input/directories/";
+        let repository_root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut candidates = vec![repository_root.join(relative)];
+        if let Some(cache) = std::env::var_os("SLATEC_EVIDENCE_CACHE") {
+            let cache_relative = relative.strip_prefix(EVIDENCE_PREFIX).unwrap_or(relative);
+            candidates.push(PathBuf::from(cache).join(cache_relative));
+        }
+        for path in candidates {
+            match fs::read(&path) {
+                Ok(source) => return Some(source),
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+                Err(error) => panic!("read source-backed fixture {}: {error}", path.display()),
+            }
+        }
+        eprintln!(
+            "skipping source-backed semantic regression without external evidence: {relative}"
+        );
+        None
+    }
+
     #[test]
     fn semantic_output_snapshot_restores_changed_and_new_outputs() {
         let temporary = tempfile::tempdir().unwrap();
@@ -4867,10 +4891,12 @@ mod tests {
             argument_line("IERROR", &known, true),
             Some((vec!["IERROR".to_owned()], String::new()))
         );
-        let source = include_bytes!(
-            "../../../evidence/full-corpus/audit-input/directories/fishfft/files/hwscrt.f"
-        );
-        let sections = parse_source_sections(source, &arguments);
+        let Some(source) = source_backed_fixture(
+            "evidence/full-corpus/audit-input/directories/fishfft/files/hwscrt.f",
+        ) else {
+            return;
+        };
+        let sections = parse_source_sections(&source, &arguments);
         assert!(
             sections.arguments["IERROR"].text.contains("error flag"),
             "parsed retained-source IERROR text: {:?}",
@@ -4884,10 +4910,12 @@ mod tests {
             name: "IERROR".to_owned(),
             ..argument_fixture()
         }];
-        let source = include_bytes!(
-            "../../../evidence/full-corpus/audit-input/directories/fishfft/files/hstcrt.f"
-        );
-        let sections = parse_source_sections(source, &arguments);
+        let Some(source) = source_backed_fixture(
+            "evidence/full-corpus/audit-input/directories/fishfft/files/hstcrt.f",
+        ) else {
+            return;
+        };
+        let sections = parse_source_sections(&source, &arguments);
         assert!(
             sections.arguments["IERROR"].text.contains("error flag"),
             "parsed retained-source IERROR text: {:?}",
@@ -4913,10 +4941,12 @@ mod tests {
             .map(|argument| argument.name.as_str())
             .collect::<BTreeSet<_>>();
         assert!(bounded_argument_line("IERR- a status code", &known, true).is_some());
-        let gaus8 = include_bytes!(
-            "../../../evidence/full-corpus/audit-input/directories/src/files/dgaus8.f"
-        );
-        let sections = parse_source_sections(gaus8, &status_arguments);
+        let Some(gaus8) = source_backed_fixture(
+            "evidence/full-corpus/audit-input/directories/src/files/dgaus8.f",
+        ) else {
+            return;
+        };
+        let sections = parse_source_sections(&gaus8, &status_arguments);
         assert!(
             sections
                 .arguments
@@ -4932,7 +4962,7 @@ mod tests {
                 ..argument_fixture()
             })
             .collect::<Vec<_>>();
-        let full_sections = parse_source_sections(gaus8, &full_gaus8_arguments);
+        let full_sections = parse_source_sections(&gaus8, &full_gaus8_arguments);
         assert!(
             full_sections
                 .arguments
@@ -4946,10 +4976,12 @@ mod tests {
             name: "TAU".to_owned(),
             ..argument_fixture()
         }];
-        let hfti = include_bytes!(
-            "../../../evidence/full-corpus/audit-input/directories/src/files/hfti.f"
-        );
-        let hfti_text = String::from_utf8_lossy(hfti);
+        let Some(hfti) =
+            source_backed_fixture("evidence/full-corpus/audit-input/directories/src/files/hfti.f")
+        else {
+            return;
+        };
+        let hfti_text = String::from_utf8_lossy(&hfti);
         let tau_line = hfti_text
             .lines()
             .find(|line| line.contains("TAU               Absolute"))
@@ -4977,7 +5009,7 @@ mod tests {
             premature_terminal.is_none(),
             "HFTI parser reaches a terminal heading before TAU: {premature_terminal:?}"
         );
-        let sections = parse_source_sections(hfti, &tau_arguments);
+        let sections = parse_source_sections(&hfti, &tau_arguments);
         assert!(
             sections
                 .arguments
@@ -5010,15 +5042,17 @@ mod tests {
                 ..argument_fixture()
             })
             .collect::<Vec<_>>();
-        let source = include_bytes!(
-            "../../../evidence/full-corpus/audit-input/directories/src/files/cgeev.f"
-        );
+        let Some(source) =
+            source_backed_fixture("evidence/full-corpus/audit-input/directories/src/files/cgeev.f")
+        else {
+            return;
+        };
         let known = arguments
             .iter()
             .map(|argument| argument.name.as_str())
             .collect::<BTreeSet<_>>();
         assert!(bounded_argument_line("V*      COMPLEX(LDV,N)", &known, true).is_some());
-        let sections = parse_source_sections(source, &arguments);
+        let sections = parse_source_sections(&source, &arguments);
         for name in ["A", "LDA", "N", "E", "V", "LDV", "WORK", "JOB", "INFO"] {
             assert!(
                 sections
