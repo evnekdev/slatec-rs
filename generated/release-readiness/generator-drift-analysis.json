@@ -5024,7 +5024,7 @@
     "transactional_command": "cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness --offline"
   },
   "input_hashes": {
-    "crates/slatec-tools/src/public_api_semantic_review.rs": "0b8ee2c7a462930681561e929888e507a9263013c92450a9bb3b2556408941b0",
+    "crates/slatec-tools/src/public_api_semantic_review.rs": "51e20f85c057cd5116a52ee3cbb8a6e5a859b2cb8cb5c56cbd3f757ded490f59",
     "crates/slatec-tools/src/release_readiness.rs": "25d7c5a42383363928f360399b8491ada2837499c6ba42daefc14fda4471dda1",
     "generated/ffi-inventory/argument-index.json": "7cf98d5b7efeb7a1e362122446762e0b78fdc2966f643d7e6ea2e7347cb07982",
     "generated/public-api/ffi-declaration-ownership.json": "f51998e03a6ad28098e1c050d55bee6d34452f205c1a0d9e43bc11e6efa97f1a",

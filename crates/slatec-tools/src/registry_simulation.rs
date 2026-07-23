@@ -538,6 +538,8 @@ fn execute_consumer(
     extra_environment: Option<&[(&str, PathBuf)]>,
 ) -> Result<()> {
     let dir = write_consumer(consumer_root, consumer)?;
+    let target_dir = consumer_target_directory(consumer_root)?;
+    fs::create_dir_all(&target_dir)?;
     match consumer.executor {
         ConsumerExecutor::Host => {
             let mut command = Command::new("cargo");
@@ -545,11 +547,19 @@ fn execute_consumer(
                 .arg(if consumer.run { "run" } else { "check" })
                 .arg("--offline")
                 .env("CARGO_NET_OFFLINE", "true")
+                // Keep output short enough for GNU linkers that do not
+                // understand Rust's extended-length Windows paths.
+                .env("CARGO_TARGET_DIR", &target_dir)
                 .env(
                     "SLATEC_GFORTRAN",
                     "__slatec_no_gfortran_at_consumer_build_time__",
                 )
                 .env_remove("SLATEC_SOURCE_CACHE");
+            if consumer.target == Some(WINDOWS_TARGET) {
+                if let Some(linker) = windows_gnu_linker_wrapper(&target_dir)? {
+                    command.env("CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER", linker);
+                }
+            }
             if let Some(target) = consumer.target {
                 command.args(["--target", target]);
             }
@@ -572,6 +582,53 @@ fn execute_consumer(
     }
 }
 
+fn consumer_target_directory(consumer_root: &Path) -> Result<PathBuf> {
+    let simulation = consumer_root
+        .parent()
+        .ok_or_else(|| policy("registry consumer root has no simulation parent"))?;
+    let registry_root = simulation
+        .parent()
+        .ok_or_else(|| policy("registry simulation has no registry parent"))?;
+    let workspace_target = registry_root
+        .parent()
+        .ok_or_else(|| policy("registry simulation escaped the workspace target directory"))?;
+    let simulation_name = simulation
+        .file_name()
+        .and_then(|name| name.to_str())
+        .ok_or_else(|| policy("registry simulation directory has no UTF-8 name"))?;
+    Ok(workspace_target.join(format!("rr-{simulation_name}")))
+}
+
+fn windows_gnu_linker_wrapper(target_dir: &Path) -> Result<Option<PathBuf>> {
+    #[cfg(windows)]
+    {
+        let wrapper = target_dir.join("slatec-mingw-linker.cmd");
+        fs::write(
+            &wrapper,
+            r#"@echo off
+setlocal DisableDelayedExpansion
+set "normalized="
+:next
+if "%~1"=="" goto link
+set "argument=%~1"
+set "argument=%argument:\\?\=%"
+set "normalized=%normalized% "%argument%""
+shift
+goto next
+:link
+x86_64-w64-mingw32-gcc %normalized%
+exit /b %ERRORLEVEL%
+"#,
+        )?;
+        Ok(Some(wrapper))
+    }
+    #[cfg(not(windows))]
+    {
+        let _ = target_dir;
+        Ok(None)
+    }
+}
+
 fn execute_expected_failure(
     consumer_root: &Path,
     consumer: Consumer,
@@ -583,10 +640,13 @@ fn execute_expected_failure(
         ));
     }
     let dir = write_consumer(consumer_root, consumer)?;
+    let target_dir = consumer_target_directory(consumer_root)?;
+    fs::create_dir_all(&target_dir)?;
     let mut command = Command::new("cargo");
     command
         .args(["check", "--offline"])
         .env("CARGO_NET_OFFLINE", "true")
+        .env("CARGO_TARGET_DIR", &target_dir)
         .env(
             "SLATEC_GFORTRAN",
             "__slatec_no_gfortran_at_consumer_build_time__",
@@ -595,6 +655,11 @@ fn execute_expected_failure(
         .env_remove("SLATEC_SYSTEM_LIB_DIR")
         .env_remove("SLATEC_SYSTEM_RUNTIME_LIB_DIR")
         .env_remove("SLATEC_SYSTEM_LIB_NAME");
+    if consumer.target == Some(WINDOWS_TARGET) {
+        if let Some(linker) = windows_gnu_linker_wrapper(&target_dir)? {
+            command.env("CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER", linker);
+        }
+    }
     if let Some(target) = consumer.target {
         command.args(["--target", target]);
     }
@@ -750,5 +815,39 @@ mod tests {
         assert_ne!(first, second);
         assert!(first.is_dir());
         assert!(second.is_dir());
+    }
+
+    #[test]
+    fn host_consumer_target_is_short_and_stays_under_workspace_target() {
+        let directory = tempfile::tempdir().expect("temporary directory");
+        let workspace_target = directory.path().join("target");
+        let parent = workspace_target.join("release-readiness-registry");
+        let simulation = create_simulation_directory(&parent).expect("simulation directory");
+        let consumer_root = simulation.join("consumers");
+
+        let target = consumer_target_directory(&consumer_root).expect("consumer target directory");
+
+        assert!(target.starts_with(&workspace_target));
+        assert_eq!(target.parent(), Some(workspace_target.as_path()));
+        assert!(
+            target
+                .file_name()
+                .and_then(|name| name.to_str())
+                .is_some_and(|name| name.starts_with("rr-run-"))
+        );
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn windows_gnu_linker_wrapper_removes_only_extended_path_prefixes() {
+        let directory = tempfile::tempdir().expect("temporary directory");
+        let wrapper = windows_gnu_linker_wrapper(directory.path())
+            .expect("linker wrapper")
+            .expect("Windows linker wrapper");
+
+        assert!(wrapper.ends_with("slatec-mingw-linker.cmd"));
+        let source = fs::read_to_string(wrapper).expect("normalizer source");
+        assert!(source.contains("set \"argument=%argument:\\\\?\\=%\""));
+        assert!(source.contains("x86_64-w64-mingw32-gcc %normalized%"));
     }
 }
