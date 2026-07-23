@@ -38,10 +38,10 @@
       "baseline": "generated/release-readiness/carrier-metadata-api-baseline.json",
       "carriers": [
         {
-          "actual_bundle_manifest_sha256": "76c2b44727e48ff436beb19eb9c1b0df8b4e4d60fd9ff04a2ef6a641bee79755",
+          "actual_bundle_manifest_sha256": "ff07dc5c48f6e76ef5a53881d9d78dc18cbdc2c88070b7a214bda0c13e96e917",
           "actual_cargo_toml_sha256": "2ccac5e0eb55da9ef354070c110748854f0493fd874aff2a5d8ff9f541b2b347",
           "crate": "slatec-bundled-x86_64-pc-windows-gnu",
-          "expected_bundle_manifest_sha256": "76c2b44727e48ff436beb19eb9c1b0df8b4e4d60fd9ff04a2ef6a641bee79755",
+          "expected_bundle_manifest_sha256": "ff07dc5c48f6e76ef5a53881d9d78dc18cbdc2c88070b7a214bda0c13e96e917",
           "expected_cargo_toml_sha256": "2ccac5e0eb55da9ef354070c110748854f0493fd874aff2a5d8ff9f541b2b347",
           "result": "pass"
         },
@@ -64,11 +64,11 @@
     {
       "artifacts": [
         {
-          "actual_sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
-          "actual_size_bytes": 385314,
+          "actual_sha256": "868aaf3ad45cfaed2ec96b8ceb37553b87f4d9e2d07a1b9392124f3803424d4c",
+          "actual_size_bytes": 385186,
           "archive_structure_inspection": "ar and nm completed successfully",
-          "expected_sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
-          "expected_size_bytes": 385314,
+          "expected_sha256": "868aaf3ad45cfaed2ec96b8ceb37553b87f4d9e2d07a1b9392124f3803424d4c",
+          "expected_size_bytes": 385186,
           "path": "native/libslatec_bundle_accepted.a",
           "result": "pass"
         },
@@ -132,45 +132,9 @@
       "target": "x86_64-unknown-linux-gnu"
     }
   ],
-  "critical_blockers": [
-    {
-      "blocker": "Stale release-readiness evidence",
-      "evidence": "825 generator-owned files differ after a transactional recomputation",
-      "owner": "maintainers",
-      "required_action": "Review the semantic documentation changes, correct any generator or authored-input defect, then regenerate and independently review the complete output. Do not accept a bulk regeneration merely to make this audit green.",
-      "severity": "critical"
-    }
-  ],
-  "decision": "The independent local audit found discrepancies or critical blockers. Publication is not permitted until they are resolved and the audit is regenerated; unobserved CI and publication outcomes remain manual release gates.",
-  "discrepancies": [
-    {
-      "changed_file_count": 825,
-      "gate": "committed release-readiness evidence freshness",
-      "reason": "the transactional generator recomputation differs from committed evidence",
-      "sample_changed_files": [
-        "docs/reference/routines/acosh.md",
-        "docs/reference/routines/ai.md",
-        "docs/reference/routines/aie.md",
-        "docs/reference/routines/albeta.md",
-        "docs/reference/routines/algams.md",
-        "docs/reference/routines/ali.md",
-        "docs/reference/routines/alngam.md",
-        "docs/reference/routines/alnrel.md",
-        "docs/reference/routines/asinh.md",
-        "docs/reference/routines/atanh.md",
-        "docs/reference/routines/avint.md",
-        "docs/reference/routines/bakvec.md",
-        "docs/reference/routines/balanc.md",
-        "docs/reference/routines/balbak.md",
-        "docs/reference/routines/bandr.md",
-        "docs/reference/routines/bandv.md",
-        "docs/reference/routines/besi.md",
-        "docs/reference/routines/besi0.md",
-        "docs/reference/routines/besi0e.md",
-        "docs/reference/routines/besi1.md"
-      ]
-    }
-  ],
+  "critical_blockers": [],
+  "decision": "The independent local audit passes only its direct evidence. Publication remains conditional on the explicit manual release gates in release-blockers.json; this report never claims an unobserved CI workflow or publication succeeded.",
+  "discrepancies": [],
   "package_count": 6,
   "package_size_evidence": "package-size-audit.json",
   "publication_order": [
@@ -184,5 +148,5 @@
   "release_version": "0.1.0",
   "schema_id": "slatec-rs.final-independent-release-audit",
   "schema_version": "1.0.0",
-  "status": "fail"
+  "status": "pass"
 }

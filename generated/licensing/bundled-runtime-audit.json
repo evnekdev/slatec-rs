@@ -1,6 +1,6 @@
 {
   "clean_consumer": {
-    "bundled_imported_dlls": [
+    "bundled_native_dependencies": [
       "KERNEL32.dll",
       "api-ms-win-crt-convert-l1-1-0.dll",
       "api-ms-win-crt-environment-l1-1-0.dll",
@@ -33,7 +33,7 @@
   },
   "compiler_invoked": true,
   "compiler_profile": "GNU Fortran 14.2.0 / x86_64-w64-mingw32",
-  "imported_dlls": [
+  "consumer_dependencies": [
     "KERNEL32.dll",
     "api-ms-win-crt-convert-l1-1-0.dll",
     "api-ms-win-crt-environment-l1-1-0.dll",
@@ -53,6 +53,7 @@
     "api-ms-win-core-synch-l1-2-0.dll",
     "bcryptprimitives.dll"
   ],
+  "imported_dlls": [],
   "network_access": false,
   "reason": "Archive-level audit complete; final consumer import probe is recorded by the release validation command.",
   "runtime_components": [

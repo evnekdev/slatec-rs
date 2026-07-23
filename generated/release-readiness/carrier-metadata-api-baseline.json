@@ -2,7 +2,7 @@
   "carriers": [
     {
       "archive_count": 10,
-      "bundle_manifest_sha256": "76c2b44727e48ff436beb19eb9c1b0df8b4e4d60fd9ff04a2ef6a641bee79755",
+      "bundle_manifest_sha256": "ff07dc5c48f6e76ef5a53881d9d78dc18cbdc2c88070b7a214bda0c13e96e917",
       "cargo_toml_sha256": "2ccac5e0eb55da9ef354070c110748854f0493fd874aff2a5d8ff9f541b2b347",
       "crate": "slatec-bundled-x86_64-pc-windows-gnu",
       "links": "slatec_bundled_x86_64_pc_windows_gnu",

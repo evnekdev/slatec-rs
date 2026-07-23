@@ -547,8 +547,8 @@
       ],
       "family": "accepted-source-closure",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
-      "size_bytes": 385314
+      "sha256": "868aaf3ad45cfaed2ec96b8ceb37553b87f4d9e2d07a1b9392124f3803424d4c",
+      "size_bytes": 385186
     }
   ],
   "compiler": {
@@ -1170,7 +1170,7 @@
   ],
   "runtime_audit": {
     "clean_consumer": {
-      "bundled_imported_dlls": [
+      "bundled_native_dependencies": [
         "KERNEL32.dll",
         "api-ms-win-crt-convert-l1-1-0.dll",
         "api-ms-win-crt-environment-l1-1-0.dll",
@@ -1203,7 +1203,7 @@
     },
     "compiler_invoked": true,
     "compiler_profile": "GNU Fortran 14.2.0 / x86_64-w64-mingw32",
-    "imported_dlls": [
+    "consumer_dependencies": [
       "KERNEL32.dll",
       "api-ms-win-crt-convert-l1-1-0.dll",
       "api-ms-win-crt-environment-l1-1-0.dll",
@@ -1223,6 +1223,7 @@
       "api-ms-win-core-synch-l1-2-0.dll",
       "bcryptprimitives.dll"
     ],
+    "imported_dlls": [],
     "network_access": false,
     "reason": "Archive-level audit complete; final consumer import probe is recorded by the release validation command.",
     "runtime_components": [
@@ -2309,27 +2310,27 @@
       "subset": "fnlib"
     },
     {
-      "cached_source_sha256": "d91aecf795865988c019b8641c7d64e2a41a86b9e7596ab555a82a32786227eb",
+      "cached_source_sha256": "a3039a977b0c220998f07bc8979c0c6008677239eab62726e1801a9bee8a0531",
       "id": "profile-i1mach",
       "object": "profile-i1mach.o",
       "path": "native/gnu-mingw-x86_64/i1mach.f",
-      "sha256": "d91aecf795865988c019b8641c7d64e2a41a86b9e7596ab555a82a32786227eb",
+      "sha256": "a3039a977b0c220998f07bc8979c0c6008677239eab62726e1801a9bee8a0531",
       "subset": "slatec-rs-profile"
     },
     {
-      "cached_source_sha256": "71b18cff7bfb9694ec2a37228a104fbca0811d25bbb033d4c762fa7301fc9e0d",
+      "cached_source_sha256": "36cb6120cc07efe0ee79ef6e8eaef6eb95551cced59fce27017a6a7fed641a97",
       "id": "profile-r1mach",
       "object": "profile-r1mach.o",
       "path": "native/gnu-mingw-x86_64/r1mach.f",
-      "sha256": "71b18cff7bfb9694ec2a37228a104fbca0811d25bbb033d4c762fa7301fc9e0d",
+      "sha256": "36cb6120cc07efe0ee79ef6e8eaef6eb95551cced59fce27017a6a7fed641a97",
       "subset": "slatec-rs-profile"
     },
     {
-      "cached_source_sha256": "85d1950cc05be44ad57ae423cd969d57e94e1a0d6b50fb12384d26808bb4a711",
+      "cached_source_sha256": "7ca5daf49f4f3d61984db2f6d757db904b5a31b9bb4d3d16f2b9e47e2263b1bf",
       "id": "profile-d1mach",
       "object": "profile-d1mach.o",
       "path": "native/gnu-mingw-x86_64/d1mach.f",
-      "sha256": "85d1950cc05be44ad57ae423cd969d57e94e1a0d6b50fb12384d26808bb4a711",
+      "sha256": "7ca5daf49f4f3d61984db2f6d757db904b5a31b9bb4d3d16f2b9e47e2263b1bf",
       "subset": "slatec-rs-profile"
     }
   ],

@@ -12,13 +12,13 @@
     {
       "crate": "slatec-bundled-x86_64-pc-windows-gnu",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 385724,
+      "package_size_bytes": 385616,
       "status": "passed_offline_prepublication"
     },
     {
       "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 398565,
+      "package_size_bytes": 398560,
       "status": "passed_offline_prepublication"
     },
     {
@@ -38,7 +38,7 @@
     {
       "crate": "slatec-sys",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 611732,
+      "package_size_bytes": 611678,
       "status": "passed_offline_prepublication"
     }
   ],
