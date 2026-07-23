@@ -41,7 +41,7 @@
       "workspace_path_dependencies": 0
     },
     {
-      "configuration": "safe-bundled-elementary",
+      "configuration": "safe-bundled-elementary-windows",
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
       "executor": "host",
       "result": "pass",
@@ -49,25 +49,83 @@
       "workspace_path_dependencies": 0
     },
     {
-      "configuration": "safe-bundled-bessel-linux",
-      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-bessel\"] }",
+      "configuration": "safe-bundled-all-families-windows",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"roots-scalar\", \"special\"] }",
+      "executor": "host",
+      "result": "pass",
+      "target": "x86_64-pc-windows-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "system-provider-compile-windows",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"system\", \"special-elementary\"] }",
+      "executor": "host",
+      "result": "pass",
+      "target": "x86_64-pc-windows-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "unsupported-bundled-family-windows",
+      "executor": "host",
+      "expected_diagnostic": "bundled SLATEC provider has no redistributable archive",
+      "result": "expected-failure-observed",
+      "target": "x86_64-pc-windows-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "unsupported-bundled-target-windows-msvc",
+      "executor": "host",
+      "expected_diagnostic": "The bundled SLATEC provider does not support",
+      "result": "expected-failure-observed",
+      "target": "x86_64-pc-windows-msvc",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "source-build-windows",
+      "executor": "host",
+      "reason": "requires an explicitly acquired checksum-verified source cache and a matching GNU Fortran toolchain; it is not silently substituted by bundled consumers",
+      "result": "manual-release-gate",
+      "target": "x86_64-pc-windows-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-bundled-elementary-linux",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
       "executor": "wsl",
       "result": "pass",
       "target": "x86_64-unknown-linux-gnu",
       "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-bundled-all-families-linux",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"roots-scalar\", \"special\"] }",
+      "executor": "wsl",
+      "result": "pass",
+      "target": "x86_64-unknown-linux-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "carrier": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "configuration": "system-provider-compile-linux",
+      "executor": "wsl",
+      "reason": "the cross-target helper does not pass Windows paths to the packaged Linux system provider; run SLATEC_REGISTRY_TARGET=linux on a Linux host",
+      "result": "manual-release-gate",
+      "target": "x86_64-unknown-linux-gnu",
+      "workspace_path_dependencies": 0
     }
   ],
+  "execution_target": "both",
   "local_packages": [
-    "slatec-sys",
     "slatec-bundled-x86_64-pc-windows-gnu",
     "slatec-bundled-x86_64-unknown-linux-gnu",
-    "slatec-src",
+    "slatec-sys",
     "slatec-core",
+    "slatec-src",
     "slatec"
   ],
-  "method": "cargo package archives installed into a Cargo directory source together with vendored registry dependencies",
+  "method": "cargo package archives installed into a Cargo directory source together with vendored registry dependencies; bundled consumers set SLATEC_GFORTRAN to an invalid executable and clear source/system configuration",
   "result": "pass",
   "schema_id": "slatec-rs.registry-only-downstream-simulation",
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "workspace_path_dependencies": 0
 }

@@ -63,6 +63,25 @@ struct RoutineDoc {
     mangled_reasons: Vec<String>,
 }
 
+/// Files that the release-readiness generator owns and therefore must be
+/// byte-for-byte fresh before a release check can pass.
+///
+/// The historical validator regenerated these files in place.  That made a
+/// stale committed report appear valid and, worse, could hide a large semantic
+/// documentation change during a release audit.  Keep the comparison
+/// transactional: generate the candidate output, restore the working tree,
+/// then report every differing path.
+#[derive(Clone, Debug)]
+pub struct ReleaseReadinessFreshness {
+    /// Generator-owned files whose recomputed contents differ from HEAD state.
+    pub changed_paths: Vec<PathBuf>,
+}
+
+#[derive(Clone, Debug)]
+struct ReadinessSnapshot {
+    files: BTreeMap<PathBuf, Vec<u8>>,
+}
+
 pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult> {
     let catalogue = read_json(&root.join("generated/slatec-routines/routine-catalogue.json"))?;
     let final_disposition = read_json(&root.join("generated/raw-api/final-disposition.json"))?;
@@ -259,7 +278,26 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
 }
 
 pub fn validate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult> {
-    let mut result = generate(root, output_dir)?;
+    let (mut result, freshness) = generate_transactionally(root, output_dir)?;
+    if !freshness.changed_paths.is_empty() {
+        let shown = freshness
+            .changed_paths
+            .iter()
+            .take(12)
+            .map(|path| path.display().to_string())
+            .collect::<Vec<_>>()
+            .join(", ");
+        let remainder = freshness.changed_paths.len().saturating_sub(12);
+        let suffix = if remainder == 0 {
+            String::new()
+        } else {
+            format!("; and {remainder} more")
+        };
+        return Err(policy(&format!(
+            "release-readiness evidence is stale in {} generator-owned files: {shown}{suffix}; review the semantic change, then run generate-release-readiness",
+            freshness.changed_paths.len(),
+        )));
+    }
     let taxonomy = read_json(&output_dir.join("module-taxonomy-validation.json"))?;
     for key in [
         "forbidden_canonical_namespace_paths",
@@ -320,6 +358,117 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
     }
     result.status = "validated".to_owned();
     Ok(result)
+}
+
+/// Recomputes release-readiness output without leaving generated churn behind.
+///
+/// This is intentionally public so the final release audit can report stale
+/// self-referential evidence as a discrepancy without treating that evidence
+/// as independent proof.
+pub fn audit_freshness(
+    root: &Path,
+    output_dir: &Path,
+) -> Result<(ReleaseReadinessResult, ReleaseReadinessFreshness)> {
+    generate_transactionally(root, output_dir)
+}
+
+fn generate_transactionally(
+    root: &Path,
+    output_dir: &Path,
+) -> Result<(ReleaseReadinessResult, ReleaseReadinessFreshness)> {
+    let snapshot = ReadinessSnapshot::capture(root)?;
+    let generated = generate(root, output_dir);
+    let freshness = snapshot.freshness(root)?;
+    snapshot.restore(root)?;
+    let result = generated?;
+    Ok((result, freshness))
+}
+
+impl ReadinessSnapshot {
+    fn capture(root: &Path) -> Result<Self> {
+        let mut files = BTreeMap::new();
+        for relative in readiness_output_roots() {
+            collect_snapshot_files(root, &relative, &mut files)?;
+        }
+        Ok(Self { files })
+    }
+
+    fn freshness(&self, root: &Path) -> Result<ReleaseReadinessFreshness> {
+        let current = Self::capture(root)?;
+        let mut paths = BTreeSet::new();
+        paths.extend(self.files.keys().cloned());
+        paths.extend(current.files.keys().cloned());
+        let changed_paths = paths
+            .into_iter()
+            .filter(|path| self.files.get(path) != current.files.get(path))
+            .collect();
+        Ok(ReleaseReadinessFreshness { changed_paths })
+    }
+
+    fn restore(&self, root: &Path) -> Result<()> {
+        let current = Self::capture(root)?;
+        for path in current
+            .files
+            .keys()
+            .filter(|path| !self.files.contains_key(*path))
+        {
+            fs::remove_file(root.join(path))?;
+        }
+        for (path, bytes) in &self.files {
+            let output = root.join(path);
+            if fs::read(&output).ok().as_deref() != Some(bytes.as_slice()) {
+                if let Some(parent) = output.parent() {
+                    fs::create_dir_all(parent)?;
+                }
+                fs::write(output, bytes)?;
+            }
+        }
+        Ok(())
+    }
+}
+
+fn readiness_output_roots() -> Vec<PathBuf> {
+    vec![
+        PathBuf::from("docs/reference/routines"),
+        PathBuf::from("docs/reference/families"),
+        PathBuf::from("docs/reference/routines-by-family.md"),
+        PathBuf::from("generated/release-readiness"),
+        PathBuf::from("generated/slatec-routines/documentation-quality.json"),
+        PathBuf::from("generated/slatec-routines/documentation-repair-candidates.json"),
+        PathBuf::from("generated/slatec-routines/family-page-index.json"),
+        PathBuf::from("generated/slatec-routines/family-page-summary.json"),
+        PathBuf::from("generated/slatec-routines/argument-documentation-coverage.json"),
+        PathBuf::from("generated/public-api/catalogue-sys-crosscheck.json"),
+        PathBuf::from("generated/public-api/documentation-export-gaps.json"),
+        PathBuf::from("generated/public-api/module-taxonomy-validation.json"),
+        PathBuf::from("generated/public-api/catalogue-sys-crosscheck-summary.md"),
+        PathBuf::from("generated/public-api/canonical-path-migrations.json"),
+    ]
+}
+
+fn collect_snapshot_files(
+    root: &Path,
+    relative: &Path,
+    files: &mut BTreeMap<PathBuf, Vec<u8>>,
+) -> Result<()> {
+    let path = root.join(relative);
+    if !path.exists() {
+        return Ok(());
+    }
+    if path.is_file() {
+        files.insert(relative.to_path_buf(), fs::read(path)?);
+        return Ok(());
+    }
+    for entry in fs::read_dir(&path)? {
+        let entry = entry?;
+        let child = entry.path();
+        let child_relative = child
+            .strip_prefix(root)
+            .map_err(|_| policy("release-readiness output escaped repository root"))?
+            .to_path_buf();
+        collect_snapshot_files(root, &child_relative, files)?;
+    }
+    Ok(())
 }
 
 fn evidence(
@@ -1398,5 +1547,29 @@ mod tests {
             ])),
             "rank 2; dimensions (LDA, *)"
         );
+    }
+
+    #[test]
+    fn transactional_snapshot_restores_changed_and_new_outputs() {
+        let directory = tempfile::tempdir().expect("temporary directory");
+        let root = directory.path();
+        let existing = root.join("docs/reference/routines/example.md");
+        fs::create_dir_all(existing.parent().expect("parent")).expect("routine directory");
+        fs::write(&existing, "before\n").expect("initial output");
+
+        let snapshot = ReadinessSnapshot::capture(root).expect("capture");
+        fs::write(&existing, "after\n").expect("changed output");
+        let created = root.join("generated/release-readiness/new-output.json");
+        fs::create_dir_all(created.parent().expect("parent")).expect("generated directory");
+        fs::write(&created, "{}\n").expect("new output");
+
+        let freshness = snapshot.freshness(root).expect("freshness");
+        assert_eq!(freshness.changed_paths.len(), 2);
+        snapshot.restore(root).expect("restore");
+        assert_eq!(
+            fs::read_to_string(existing).expect("restored output"),
+            "before\n"
+        );
+        assert!(!created.exists());
     }
 }

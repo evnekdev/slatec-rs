@@ -1,0 +1,58 @@
+name: Release consumers
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  linux-gnu-registry-only:
+    name: Linux GNU registry-only consumer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - run: cargo fetch --locked
+      - name: Package-first Linux consumers without a Fortran compiler
+        env:
+          SLATEC_REGISTRY_TARGET: linux
+          SLATEC_GFORTRAN: __slatec_no_gfortran_at_consumer_build_time__
+        run: cargo run -p slatec-tools --bin slatec-corpus -- validate-registry-simulation --offline
+      - name: Verify Linux carrier checksums and archive structure
+        run: cargo run -p slatec-tools --bin slatec-corpus -- validate-final-release-audit --offline
+      - name: Verify bundled consumer has no dynamic GNU Fortran runtime dependency
+        run: |
+          binary=$(find target/release-readiness-registry -type f -name safe-bundled-all-families-linux | head -n 1)
+          test -n "$binary"
+          readelf -d "$binary"
+          ! readelf -d "$binary" | grep -E 'libgfortran|libquadmath'
+
+  windows-gnu-registry-only:
+    name: Windows GNU registry-only consumer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - name: Install the Rust GNU target and expose the linker only
+        shell: pwsh
+        run: |
+          rustup target add x86_64-pc-windows-gnu
+          Add-Content $env:GITHUB_PATH 'C:\msys64\mingw64\bin'
+          cargo fetch --locked
+      - name: Package-first Windows GNU consumers without a Fortran compiler
+        shell: pwsh
+        env:
+          SLATEC_REGISTRY_TARGET: windows
+          SLATEC_GFORTRAN: __slatec_no_gfortran_at_consumer_build_time__
+        run: cargo run -p slatec-tools --bin slatec-corpus -- validate-registry-simulation --offline
+      - name: Verify Windows carrier checksums and PE imports
+        shell: pwsh
+        run: |
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-final-release-audit --offline
+          $binary = Get-ChildItem target\release-readiness-registry -Recurse -Filter safe-bundled-all-families-windows.exe | Select-Object -First 1
+          if ($null -eq $binary) { throw 'packaged Windows GNU consumer executable was not produced' }
+          llvm-objdump -p $binary.FullName | Select-String 'DLL Name'

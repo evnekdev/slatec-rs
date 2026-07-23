@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "check": "safe API baseline",
+      "classification": "independently-recomputed",
+      "evidence": "current generated safe function index is hashed and counted directly against its committed baseline"
+    },
+    {
+      "check": "raw ABI baseline",
+      "classification": "independently-recomputed",
+      "evidence": "current canonical raw API inventory is hashed and counted directly against its committed baseline"
+    },
+    {
+      "check": "core support API baseline",
+      "classification": "independently-recomputed",
+      "evidence": "the authored core export source is hashed and its explicit exports are counted directly"
+    },
+    {
+      "check": "carrier metadata and archive receipts",
+      "classification": "independently-recomputed",
+      "evidence": "carrier manifests, native archive sizes, and SHA-256 values are read directly; ar and nm are invoked when available"
+    },
+    {
+      "check": "publishable package contents",
+      "classification": "independently-recomputed",
+      "evidence": "fresh cargo package archives are decompressed and inspected without using the package-content audit output"
+    },
+    {
+      "check": "registry-only consumers",
+      "classification": "externally-observed",
+      "evidence": "target-specific CI runs the packaged consumers; this document does not promote a stored simulator report to independent proof"
+    },
+    {
+      "check": "source-build parity",
+      "classification": "manually-reviewed",
+      "evidence": "requires a separately acquired checksum-verified cache and matching GNU Fortran toolchain; it remains an explicit release gate"
+    },
+    {
+      "check": "external public API tooling",
+      "classification": "externally-observed",
+      "evidence": "cargo public-api snapshots and cargo semver-checks invocations are run outside this generator and recorded by the release operator"
+    },
+    {
+      "check": "committed release-readiness reports",
+      "classification": "self-referential",
+      "evidence": "a transactional recomputation identifies stale generated evidence, but semantic documentation still requires independent review before regeneration is accepted"
+    }
+  ],
+  "schema_id": "slatec-rs.release-check-trust-boundaries",
+  "schema_version": "1.0.0"
+}

@@ -153,7 +153,7 @@
     {
       "crate": "slatec-bundled-x86_64-pc-windows-gnu",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 385725,
+      "package_size_bytes": 385724,
       "status": "passed_offline_prepublication"
     },
     {
@@ -179,7 +179,7 @@
     {
       "crate": "slatec-sys",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 611733,
+      "package_size_bytes": 611732,
       "status": "passed_offline_prepublication"
     }
   ],

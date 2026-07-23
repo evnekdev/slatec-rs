@@ -1,0 +1,44 @@
+{
+  "blockers": [
+    {
+      "blocker": "Stale release-readiness evidence",
+      "evidence": "825 generator-owned files differ after a transactional recomputation",
+      "owner": "maintainers",
+      "required_action": "Review the semantic documentation changes, correct any generator or authored-input defect, then regenerate and independently review the complete output. Do not accept a bulk regeneration merely to make this audit green.",
+      "severity": "critical"
+    }
+  ],
+  "manual_release_gates": [
+    {
+      "blocker": "Target CI workflow runs",
+      "evidence": "workflow definition and post-push checks",
+      "owner": "release operator",
+      "required_action": "Observe successful Windows GNU and Linux GNU registry-only workflow runs for the selected commit.",
+      "severity": "release gate"
+    },
+    {
+      "blocker": "Source-build parity",
+      "evidence": "checksum-verified source cache and matching compiler runtime",
+      "owner": "release operator",
+      "required_action": "Run the documented source-build regression profile; do not substitute bundled evidence.",
+      "severity": "release gate"
+    },
+    {
+      "blocker": "Registry publication propagation",
+      "evidence": "crates.io index and package availability",
+      "owner": "release operator",
+      "required_action": "Use the generated dry-run and real-publication templates in order, waiting for each prerequisite to resolve.",
+      "severity": "release operation"
+    },
+    {
+      "blocker": "Advisory database review",
+      "evidence": "current advisory database and Cargo.lock",
+      "owner": "release operator",
+      "required_action": "Run cargo audit or the documented equivalent with current advisory data immediately before publication.",
+      "severity": "release gate"
+    }
+  ],
+  "schema_id": "slatec-rs.release-blockers",
+  "schema_version": "1.0.0",
+  "status": "critical-blockers-present"
+}

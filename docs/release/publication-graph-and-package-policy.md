@@ -64,6 +64,10 @@ Generated evidence is committed at:
 - [`scalar-accuracy-evidence.json`](../../generated/release-readiness/scalar-accuracy-evidence.json)
 - [`docs-feature-visibility.json`](../../generated/release-readiness/docs-feature-visibility.json)
 - [`target-support.json`](../../generated/release-readiness/target-support.json)
+- [`final-independent-audit.json`](../../generated/release-readiness/final-independent-audit.json)
+- [`package-size-audit.json`](../../generated/release-readiness/package-size-audit.json)
+- [`release-check-trust-boundaries.json`](../../generated/release-readiness/release-check-trust-boundaries.json)
+- [`release-blockers.json`](../../generated/release-readiness/release-blockers.json)
 
 The release checklist records package verification, dry-run dependency
 blockers, downstream simulation, crates.io ownership, publication order, and
@@ -74,3 +78,10 @@ path is not evidence that its raw declaration is stable, and an unsafe ABI path
 is not evidence of a safe facade. Each baseline records its target and feature
 profile so future target-carrier additions cannot silently change the frozen
 surface.
+
+The independent audit is intentionally a separate package-first recomputation:
+it recreates a directory registry, repackages every publishable crate in the
+release order, decompresses each `.crate`, recomputes hashes and carrier
+receipt checks, and compares its counts with the release-candidate report.
+Its trust-boundary document labels stored generator output as self-referential
+rather than mistaking it for independent proof.
