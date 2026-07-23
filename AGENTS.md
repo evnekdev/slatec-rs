@@ -71,6 +71,43 @@ Search authored registries and generator code before searching large generated r
 - Update architecture documentation when changing cross-crate responsibilities or generation flow.
 - Review the final diff for unrelated generated churn.
 
+## Repository engineering workflow
+
+Use `rg` for text and symbol searches. For non-trivial Rust analysis, use
+rust-analyzer when an available interface supports the required semantic
+operation. Use `sg` (ast-grep) for repeated structural transformations: first
+preview matches, then apply the narrowest syntax-aware rewrite. Do not use a
+regular-expression rewrite where it could alter serialized names, FFI symbols,
+or public compatibility.
+
+Use the following tools when they are relevant to the task:
+
+- `cargo check` for compile validation; `cargo test` or `cargo nextest run` for behavioural validation;
+- `cargo clippy`, `cargo fmt`, and compiler-suggested `cargo fix` for Rust hygiene;
+- `cargo expand` when investigating macro-generated code;
+- `cargo semver-checks` and `cargo public-api` when evaluating published API compatibility;
+- `cargo machete` when reviewing likely unused dependencies; and
+- `git diff` plus `git diff --check` for the final change review.
+
+For every non-trivial refactoring:
+
+1. Inspect `git status` before editing, then identify definitions and references with `rg`.
+2. Preserve serialized names, FFI symbols, and public compatibility unless the task explicitly authorizes a breaking change.
+3. Change authored inputs rather than generated output; regenerate affected output through its owner.
+4. Inspect the complete diff after automated changes and before completion.
+5. Run formatting, compilation, tests, Clippy, and the relevant generator or native validation before handoff.
+
+For ordinary Rust changes, unless a user or task-specific instruction requires a
+narrower scope, run this final matrix in addition to task-specific validation:
+
+```bash
+cargo fmt --all -- --check
+cargo check --workspace --all-targets --all-features
+cargo test --workspace --all-features
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+git diff --check
+```
+
 ## Baseline validation
 
 Run the narrowest relevant checks while iterating, then before completion run as much of this matrix as the task and environment permit:
