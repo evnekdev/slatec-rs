@@ -2041,9 +2041,9 @@
       "source_hash": "d3463f5e022a89a7ebeee15b33f3a3e19d35d1013dd91d5972b8b9cfff08ec2e"
     },
     {
-      "batch_b_eligibility": "excluded",
-      "batch_b_exclusion_code": "unresolved_callback_signature",
-      "batch_b_exclusion_reason": "artifact verification failed: DPFQAD callback F has no direct or forwarded call evidence",
+      "batch_b_eligibility": "already_public",
+      "batch_b_exclusion_code": "",
+      "batch_b_exclusion_reason": "",
       "callback_count": 1,
       "callback_dummy_names": [
         "F"
@@ -3381,9 +3381,9 @@
       "source_hash": "d7d041d55d48e6e41177b29598356014fec5b9dcbf2013ccd318baae11e3ec6a"
     },
     {
-      "batch_b_eligibility": "excluded",
-      "batch_b_exclusion_code": "unresolved_callback_signature",
-      "batch_b_exclusion_reason": "artifact verification failed: DSOS callback FNC has no direct or forwarded call evidence",
+      "batch_b_eligibility": "already_public",
+      "batch_b_exclusion_code": "",
+      "batch_b_exclusion_reason": "",
       "callback_count": 1,
       "callback_dummy_names": [
         "FNC"
@@ -6502,9 +6502,9 @@
       "source_hash": "e0cbe9e8ba2f49c496a79c1ce467d63a68a6ffdb7196c93fd99c028d45988b59"
     },
     {
-      "batch_b_eligibility": "excluded",
-      "batch_b_exclusion_code": "unresolved_callback_signature",
-      "batch_b_exclusion_reason": "artifact verification failed: SOS callback FNC has no direct or forwarded call evidence",
+      "batch_b_eligibility": "already_public",
+      "batch_b_exclusion_code": "",
+      "batch_b_exclusion_reason": "",
       "callback_count": 1,
       "callback_dummy_names": [
         "FNC"

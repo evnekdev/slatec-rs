@@ -100,5 +100,7 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime validation: `passed`
 - Safe-wrapper status: `slatec::blas::level1::ddot`
+- Safe-facade link test: `not_recorded`
+- Safe-facade runtime test: `not_recorded`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

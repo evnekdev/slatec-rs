@@ -5024,11 +5024,11 @@
     "transactional_command": "cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness --offline"
   },
   "input_hashes": {
-    "crates/slatec-tools/src/public_api_semantic_review.rs": "fb1e43869ea24e4457f9df6a299099e87c36099db925ccda72ea0abbb7c2a05e",
+    "crates/slatec-tools/src/public_api_semantic_review.rs": "0b8ee2c7a462930681561e929888e507a9263013c92450a9bb3b2556408941b0",
     "crates/slatec-tools/src/release_readiness.rs": "25d7c5a42383363928f360399b8491ada2837499c6ba42daefc14fda4471dda1",
     "generated/ffi-inventory/argument-index.json": "7cf98d5b7efeb7a1e362122446762e0b78fdc2966f643d7e6ea2e7347cb07982",
-    "generated/public-api/ffi-declaration-ownership.json": "250de1fb417701f6b00abbc1990319442f423774465010f1ea05bf2842e4e3bf",
-    "generated/raw-api/final-disposition.json": "764a7c52ef232c5bbbdbc91914c78ebce77b5f0eafa4534cb3a5abf55f5cba95",
+    "generated/public-api/ffi-declaration-ownership.json": "f51998e03a6ad28098e1c050d55bee6d34452f205c1a0d9e43bc11e6efa97f1a",
+    "generated/raw-api/final-disposition.json": "984a7206de698dd135d2ab75c71f5331190fb9476db84f8744f91eee52bb3fd9",
     "generated/raw-api/routine-status.json": "30c7617e527ac822d732e6827f993c189e97900a922e1d2f2ef56fd405c158c7",
     "generated/slatec-routines/routine-catalogue.json": "f9f6e4be726580b8b685584cfad60c78a79583d8ba55d2e3784c101d2ab8473e",
     "metadata/public-api-semantic-corrections.json": "f45397248a4437c2e1350a81794da056a6b65016f05b05f1f1299813f3645b6c",

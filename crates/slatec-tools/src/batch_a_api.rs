@@ -89,6 +89,21 @@ struct Candidate {
 /// Generate the complete retained-corpus ABI classification, Batch A reports,
 /// and generated canonical re-export fragments.
 pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
+    build(paths, true, true)
+}
+
+/// Regenerates only Batch A's report files, leaving reviewed declarations to
+/// their canonical semantic-documentation owner.
+pub fn generate_reports(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
+    build(paths, true, false)
+}
+
+/// Builds Batch A evidence and either writes it or compares it transactionally.
+fn build(
+    paths: BatchAPaths<'_>,
+    write_reports: bool,
+    write_source_outputs: bool,
+) -> Result<BatchAResult> {
     let catalogue = records(
         &read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?,
         "routine catalogue",
@@ -245,9 +260,11 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
     candidates.sort_by_key(|candidate| candidate.routine.clone());
     exclusions.sort_by_key(|record| field(record, "routine"));
     validate_candidates(&candidates)?;
-    write_canonical_modules(paths.sys_dir, &candidates)?;
-    write_compile_probes(paths.sys_dir, &candidates)?;
-    write_link_probes(paths.facade_dir, &candidates)?;
+    if write_source_outputs {
+        write_canonical_modules(paths.sys_dir, &candidates)?;
+        write_compile_probes(paths.sys_dir, &candidates)?;
+        write_link_probes(paths.facade_dir, &candidates)?;
+    }
 
     let abi_summary = summary_by(&classifications, "abi_class");
     let exclusion_summary = summary_by(&classifications, "batch_a_exclusion_code");
@@ -335,7 +352,11 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
             "outputs":files.keys().collect::<Vec<_>>(),
         }))?,
     );
-    write_outputs(paths.output_dir, &files)?;
+    if write_reports {
+        write_outputs(paths.output_dir, &files)?;
+    } else {
+        validate_outputs(paths.output_dir, &files)?;
+    }
     Ok(BatchAResult {
         status: "success".to_owned(),
         retained_identities: classifications.len(),
@@ -348,7 +369,7 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
 /// Regenerate Batch A output and validate its machine-checkable invariants.
 pub fn validate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
     let sys_dir = paths.sys_dir.to_path_buf();
-    let result = generate(paths)?;
+    let result = build(paths, false, false)?;
     let candidates_value = read_json(&result.output_dir.join("batch-a-candidates.json"))?;
     let candidates = records(&candidates_value, "Batch A candidates")?;
     let mut paths = BTreeSet::new();
@@ -394,6 +415,25 @@ pub fn validate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
         }
     }
     Ok(result)
+}
+
+fn validate_outputs(output_dir: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    for (name, expected) in files {
+        let path = output_dir.join(name);
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "missing Batch A output {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(policy(&format!(
+                "Batch A output {} differs; regenerate it with generate-raw-batch-a-reports",
+                path.display()
+            )));
+        }
+    }
+    Ok(())
 }
 
 /// Returns the generated Rustdoc block for a Batch A public routine.

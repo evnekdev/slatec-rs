@@ -92,6 +92,10 @@ cargo run -p slatec-tools --bin slatec-corpus -- generate-raw-batch-c --offline
 cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-batch-c --offline
 ```
 
+When only Batch C evidence is stale after an inventory change, use
+`generate-raw-batch-c-reports --offline`. It refreshes report files without
+rewriting canonical declarations, probes, or reviewed Rustdoc.
+
 Two generated compile batches import all canonical paths, and two native link
 batches reference every promoted symbol. Representative native tests exercise
 complex returns, extended-precision complex accumulation, complex matrix

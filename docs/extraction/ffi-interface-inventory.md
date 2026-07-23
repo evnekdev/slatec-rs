@@ -192,6 +192,19 @@ cargo run -p slatec-tools --bin slatec-corpus -- generate-raw-api-inventory --of
 cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-api-inventory --offline
 ```
 
+The full inventory generator also owns reviewed declaration modules and probe
+fragments. Use `generate-raw-api-inventory-reports --offline` to refresh only
+the inventory reports and routine-page status blocks after an upstream evidence
+change. Validation recomputes and compares every owned report without rewriting
+declarations, probes, or reviewed Rustdoc.
+
+Likewise, `validate-unique-ffi-declarations --offline` is transactional. The
+full `generate-ffi-declaration-ownership --offline` command is the only owner
+of private ABI-shaped declaration consolidation; use
+`generate-ffi-declaration-ownership-reports --offline` when only its evidence
+files need refresh. Canonical mathematical re-exports—not private ABI-shaped
+declaration owners—carry the reviewed Rustdoc contract.
+
 The result distinguishes generated candidates, ABI-validated generated
 declarations, reviewed public drivers and subsidiaries, provider-backed
 routines, link/runtime coverage, documentation coverage, safe wrappers, and
@@ -236,6 +249,11 @@ paths, features, provider closures, argument documentation, source links, or
 Safety sections. See [`docs/api/raw-batch-a.md`](../api/raw-batch-a.md) for the
 scope, non-goals, and native-provider workflow.
 
+The full Batch A generator also owns transitional declaration and probe
+fragments. To refresh only its evidence reports after an upstream inventory
+change, use `generate-raw-batch-a-reports --offline`; validation recomputes and
+compares reports without writing declarations, probes, or reviewed Rustdoc.
+
 ## Batch B callback-bearing raw interface promotion
 
 Batch B also reuses the normalized interface inventory, but keeps a narrower
@@ -254,3 +272,8 @@ path, declaration feature, provider feature, callback ABI fingerprint, source
 evidence, generated argument documentation, source link, Safety section,
 compile probe, and native link probe. See
 [`docs/api/raw-batch-b-callbacks.md`](../api/raw-batch-b-callbacks.md).
+
+Use `generate-raw-batch-b-reports --offline --source-cache-dir
+target/slatec-source-cache` to refresh only report evidence. Both Batch B
+validation and this report-only command leave canonical declarations, probes,
+and reviewed Rustdoc to their semantic-documentation owner.

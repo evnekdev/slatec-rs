@@ -1,7 +1,7 @@
 # Raw API Batch C summary
 
 - Retained identities: 1517
-- Public raw identities before Batch C: 679
+- Public raw identities before Batch C: 688
 - Complex-bearing identities: 195
 - Complex argument/output identities: 195
 - Complex function-return identities: 33
@@ -19,7 +19,7 @@
 - ENTRY/alternate-return exclusions: 0
 - Provider-missing exclusions: 41
 - Other ABI exclusions: 0
-- Public raw identities after Batch C: 776 (51.15% of retained identities)
+- Public raw identities after Batch C: 785 (51.75% of retained identities)
 - Unique Batch C ABI fingerprints: 58
 - Source-hash corrections: 0
 - Parser improvements: 1

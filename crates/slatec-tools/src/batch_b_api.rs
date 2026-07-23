@@ -127,6 +127,21 @@ struct ForwardEdge {
 
 /// Generate Batch B callback reports, canonical declarations, and probes.
 pub fn generate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
+    build(paths, true, true)
+}
+
+/// Regenerates only Batch B's report files, leaving reviewed declarations to
+/// their canonical semantic-documentation owner.
+pub fn generate_reports(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
+    build(paths, true, false)
+}
+
+/// Builds Batch B evidence and either writes it or compares it transactionally.
+fn build(
+    paths: BatchBPaths<'_>,
+    write_reports: bool,
+    write_source_outputs: bool,
+) -> Result<BatchBResult> {
     let catalogue = records(
         &read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?,
         "routine catalogue",
@@ -309,9 +324,11 @@ pub fn generate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
     candidates.sort_by_key(|candidate| candidate.routine.clone());
     exclusions.sort_by_key(|record| field(record, "routine"));
     validate_candidates(&candidates)?;
-    write_canonical_modules(paths.sys_dir, &candidates)?;
-    write_compile_probes(paths.sys_dir, &candidates)?;
-    write_link_probes(paths.facade_dir, &candidates)?;
+    if write_source_outputs {
+        write_canonical_modules(paths.sys_dir, &candidates)?;
+        write_compile_probes(paths.sys_dir, &candidates)?;
+        write_link_probes(paths.facade_dir, &candidates)?;
+    }
 
     let candidate_jsons = candidates.iter().map(candidate_json).collect::<Vec<_>>();
     let callback_records = classifications
@@ -393,12 +410,16 @@ pub fn generate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
             )?,
         ),
     ]);
-    fs::create_dir_all(paths.output_dir)?;
-    for (name, content) in report_files {
-        let path = paths.output_dir.join(name);
-        if fs::read(&path).ok().as_deref() != Some(content.as_slice()) {
-            fs::write(path, content)?;
+    if write_reports {
+        fs::create_dir_all(paths.output_dir)?;
+        for (name, content) in report_files {
+            let path = paths.output_dir.join(name);
+            if fs::read(&path).ok().as_deref() != Some(content.as_slice()) {
+                fs::write(path, content)?;
+            }
         }
+    } else {
+        validate_outputs(paths.output_dir, &report_files)?;
     }
 
     Ok(BatchBResult {
@@ -412,7 +433,7 @@ pub fn generate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
 
 /// Regenerate Batch B output and validate its machine-checkable invariants.
 pub fn validate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
-    let result = generate(paths)?;
+    let result = build(paths, false, false)?;
     let candidates = records(
         &read_json(&result.output_dir.join("batch-b-candidates.json"))?,
         "Batch B candidates",
@@ -448,6 +469,25 @@ pub fn validate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
         return Err(policy("Batch B has candidates but no callback shapes"));
     }
     Ok(result)
+}
+
+fn validate_outputs(output_dir: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    for (name, expected) in files {
+        let path = output_dir.join(name);
+        let actual = fs::read(&path).map_err(|error| {
+            policy(&format!(
+                "missing Batch B output {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(policy(&format!(
+                "Batch B output {} differs; regenerate it with generate-raw-batch-b-reports",
+                path.display()
+            )));
+        }
+    }
+    Ok(())
 }
 
 fn classify(

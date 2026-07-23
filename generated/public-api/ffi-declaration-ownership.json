@@ -5459,7 +5459,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:28",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:38",
       "canonical_public_path": "slatec_sys::quadrature::dpfqad",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5774,7 +5774,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:321",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:331",
       "canonical_public_path": "slatec_sys::quadrature::dqag",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5789,7 +5789,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:415",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:425",
       "canonical_public_path": "slatec_sys::quadrature::dqagi",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5819,7 +5819,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:49",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:59",
       "canonical_public_path": "slatec_sys::quadrature::dqagp",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5849,7 +5849,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:369",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:379",
       "canonical_public_path": "slatec_sys::quadrature::dqags",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5879,7 +5879,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:461",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:471",
       "canonical_public_path": "slatec_sys::quadrature::dqawc",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5909,7 +5909,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:203",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:213",
       "canonical_public_path": "slatec_sys::quadrature::dqawf",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5924,7 +5924,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:151",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:161",
       "canonical_public_path": "slatec_sys::quadrature::dqawo",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5939,7 +5939,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:99",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:109",
       "canonical_public_path": "slatec_sys::quadrature::dqaws",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -6164,7 +6164,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:289",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:299",
       "canonical_public_path": "slatec_sys::quadrature::dqnc79",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -6179,7 +6179,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:253",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:263",
       "canonical_public_path": "slatec_sys::quadrature::dqng",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8789,7 +8789,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:345",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:355",
       "canonical_public_path": "slatec_sys::quadrature::qag",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8804,7 +8804,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:438",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:448",
       "canonical_public_path": "slatec_sys::quadrature::qagi",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8834,7 +8834,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:74",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:84",
       "canonical_public_path": "slatec_sys::quadrature::qagp",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8864,7 +8864,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:392",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:402",
       "canonical_public_path": "slatec_sys::quadrature::qags",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8894,7 +8894,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:485",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:495",
       "canonical_public_path": "slatec_sys::quadrature::qawc",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8924,7 +8924,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:228",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:238",
       "canonical_public_path": "slatec_sys::quadrature::qawf",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8939,7 +8939,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:177",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:187",
       "canonical_public_path": "slatec_sys::quadrature::qawo",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8954,7 +8954,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:125",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:135",
       "canonical_public_path": "slatec_sys::quadrature::qaws",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -9149,7 +9149,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:305",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:315",
       "canonical_public_path": "slatec_sys::quadrature::qnc79",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -9164,7 +9164,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:271",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:281",
       "canonical_public_path": "slatec_sys::quadrature::qng",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,

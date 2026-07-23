@@ -134,5 +134,7 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime validation: `passed`
 - Safe-wrapper status: `slatec::quadrature::integrate_with_breakpoints_f32`
+- Safe-facade link test: `not_recorded`
+- Safe-facade runtime test: `not_recorded`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

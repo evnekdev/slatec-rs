@@ -764,7 +764,24 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
 
 /// Regenerates M2 output and enforces the public documentation contract.
 pub fn validate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> {
-    let mut result = generate(root, output_dir)?;
+    let (mut result, changed_paths) = generate_transactionally(root, output_dir)?;
+    if !changed_paths.is_empty() {
+        let shown = changed_paths
+            .iter()
+            .take(8)
+            .map(|path| path.display().to_string())
+            .collect::<Vec<_>>()
+            .join(", ");
+        let suffix = if changed_paths.len() > 8 {
+            format!(" (and {} more)", changed_paths.len() - 8)
+        } else {
+            String::new()
+        };
+        return Err(policy(&format!(
+            "public semantic-review outputs are stale in {} files: {shown}{suffix}; run generate-public-api-semantic-review",
+            changed_paths.len()
+        )));
+    }
     let inventory =
         read_json(&root.join("generated/slatec-routines/public-documentation-inventory.json"))?;
     let source_links =
@@ -3374,6 +3391,17 @@ fn inject_public_rustdoc_contracts(root: &Path, routines: &BTreeSet<String>) -> 
     let mut paths = Vec::new();
     collect_rust_sources(&source_root, &mut paths)?;
     for path in paths {
+        if path
+            .strip_prefix(&source_root)
+            .ok()
+            .and_then(|relative| relative.components().next())
+            .is_some_and(|component| component.as_os_str() == "generated")
+        {
+            // ABI-shaped generated files are private declaration owners. Their
+            // ownership generator may remove or re-export entries, so the
+            // canonical public re-export is the only rustdoc attachment site.
+            continue;
+        }
         let original = fs::read_to_string(&path)?;
         let mut output = String::new();
         let mut previous_was_contract = false;
@@ -4551,6 +4579,143 @@ fn write_markdown(path: &Path, content: &str) -> Result<()> {
     Ok(())
 }
 
+/// Captures every output owned by semantic-review generation so validation can
+/// recompute its candidate output without accepting or leaving behind changes.
+#[derive(Clone, Debug)]
+struct SemanticOutputSnapshot {
+    roots: Vec<PathBuf>,
+    files: BTreeMap<PathBuf, Vec<u8>>,
+}
+
+fn generate_transactionally(
+    root: &Path,
+    output_dir: &Path,
+) -> Result<(SemanticReviewResult, Vec<PathBuf>)> {
+    let snapshot = SemanticOutputSnapshot::capture(root, semantic_output_roots(root, output_dir)?)?;
+    let generated = generate(root, output_dir);
+    let changed = snapshot.changed_paths(root);
+    let restored = snapshot.restore(root);
+    restored?;
+    let result = generated?;
+    Ok((result, changed?))
+}
+
+impl SemanticOutputSnapshot {
+    fn capture(root: &Path, roots: Vec<PathBuf>) -> Result<Self> {
+        let mut files = BTreeMap::new();
+        for relative in &roots {
+            collect_snapshot_files(root, relative, &mut files)?;
+        }
+        Ok(Self { roots, files })
+    }
+
+    fn changed_paths(&self, root: &Path) -> Result<Vec<PathBuf>> {
+        let current = Self::capture(root, self.roots.clone())?;
+        let mut paths = BTreeSet::new();
+        paths.extend(self.files.keys().cloned());
+        paths.extend(current.files.keys().cloned());
+        Ok(paths
+            .into_iter()
+            .filter(|path| self.files.get(path) != current.files.get(path))
+            .collect())
+    }
+
+    fn restore(&self, root: &Path) -> Result<()> {
+        let current = Self::capture(root, self.roots.clone())?;
+        for path in current
+            .files
+            .keys()
+            .filter(|path| !self.files.contains_key(*path))
+        {
+            fs::remove_file(root.join(path))?;
+        }
+        for (path, bytes) in &self.files {
+            let output = root.join(path);
+            if fs::read(&output).ok().as_deref() != Some(bytes.as_slice()) {
+                if let Some(parent) = output.parent() {
+                    fs::create_dir_all(parent)?;
+                }
+                fs::write(output, bytes)?;
+            }
+        }
+        Ok(())
+    }
+}
+
+fn semantic_output_roots(root: &Path, output_dir: &Path) -> Result<Vec<PathBuf>> {
+    let output_dir = if output_dir.is_absolute() {
+        output_dir
+            .strip_prefix(root)
+            .map_err(|_| policy("semantic-review output directory escaped repository root"))?
+    } else {
+        output_dir
+    };
+    Ok(vec![
+        PathBuf::from("docs/reference/routines"),
+        PathBuf::from("crates/slatec-sys/src"),
+        PathBuf::from("generated/slatec-routines/public-documentation-inventory.json"),
+        PathBuf::from("generated/slatec-routines/public-documentation-inventory-summary.md"),
+        PathBuf::from("generated/slatec-routines/netlib-source-link-audit.json"),
+        PathBuf::from("generated/slatec-routines/netlib-source-link-summary.md"),
+        PathBuf::from("generated/slatec-routines/documentation-quality.json"),
+        PathBuf::from("generated/slatec-routines/documentation-quality-summary.md"),
+        PathBuf::from("generated/slatec-routines/argument-documentation-coverage.json"),
+        PathBuf::from("generated/slatec-routines/family-semantic-audits.json"),
+        PathBuf::from("generated/slatec-routines/family-page-placement-discrepancies.json"),
+        PathBuf::from("generated/slatec-routines/semantic-quality-baseline.json"),
+        PathBuf::from("generated/slatec-routines/semantic-quality-baseline-summary.md"),
+        PathBuf::from("generated/slatec-routines/semantic-quality-final.json"),
+        PathBuf::from("generated/slatec-routines/direction-evidence-conflicts.json"),
+        PathBuf::from("generated/slatec-routines/argument-contamination-audit.json"),
+        PathBuf::from("generated/slatec-routines/status-contract-coverage.json"),
+        PathBuf::from("generated/slatec-routines/workspace-contract-coverage.json"),
+        PathBuf::from("generated/slatec-routines/argument-contamination-summary.md"),
+        PathBuf::from("generated/slatec-routines/manual-semantic-review-sample.md"),
+        PathBuf::from("generated/public-api/canonical-public-api.json"),
+        PathBuf::from("generated/public-api/canonical-public-api-summary.md"),
+        PathBuf::from("generated/public-api/jacobian-check-review.json"),
+        PathBuf::from("generated/public-api/jacobian-check-review.md"),
+        PathBuf::from("generated/public-api/taxonomy-review.json"),
+        PathBuf::from("generated/public-api/taxonomy-review.md"),
+        PathBuf::from("generated/public-api/manual-semantic-review.json"),
+        PathBuf::from("generated/public-api/manual-semantic-review-summary.md"),
+        PathBuf::from("generated/public-api/legacy-linear-algebra-review.json"),
+        PathBuf::from("generated/public-api/legacy-linear-algebra-review.md"),
+        PathBuf::from("generated/public-api/family-page-placement-discrepancies.json"),
+        PathBuf::from("generated/public-api/family-semantic-audits.json"),
+        PathBuf::from("generated/history/pre-release-public-api-cleanup.json"),
+        PathBuf::from("generated/history/pre-release-public-api-cleanup.md"),
+        PathBuf::from("generated/release-readiness/documentation-quality.json"),
+        PathBuf::from("generated/release-readiness/argument-documentation-coverage.json"),
+        output_dir.join("public-api-semantic-review-summary.json"),
+    ])
+}
+
+fn collect_snapshot_files(
+    root: &Path,
+    relative: &Path,
+    files: &mut BTreeMap<PathBuf, Vec<u8>>,
+) -> Result<()> {
+    let path = root.join(relative);
+    if !path.exists() {
+        return Ok(());
+    }
+    if path.is_file() {
+        files.insert(relative.to_path_buf(), fs::read(path)?);
+        return Ok(());
+    }
+    for entry in fs::read_dir(&path)? {
+        let entry = entry?;
+        let child = entry.path();
+        let child_relative = child
+            .strip_prefix(root)
+            .map_err(|_| policy("semantic-review output escaped repository root"))?
+            .to_path_buf();
+        collect_snapshot_files(root, &child_relative, files)?;
+    }
+    Ok(())
+}
+
 fn policy(message: &str) -> CorpusError {
     CorpusError::Policy(message.to_owned())
 }
@@ -4558,6 +4723,33 @@ fn policy(message: &str) -> CorpusError {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn semantic_output_snapshot_restores_changed_and_new_outputs() {
+        let temporary = tempfile::tempdir().unwrap();
+        let root = temporary.path();
+        let existing = root.join("docs/reference/routines/example.md");
+        fs::create_dir_all(existing.parent().unwrap()).unwrap();
+        fs::write(&existing, "before\n").unwrap();
+
+        let snapshot = SemanticOutputSnapshot::capture(
+            root,
+            vec![
+                PathBuf::from("docs/reference/routines"),
+                PathBuf::from("generated/release-readiness"),
+            ],
+        )
+        .unwrap();
+        fs::write(&existing, "after\n").unwrap();
+        let created = root.join("generated/release-readiness/new-output.json");
+        fs::create_dir_all(created.parent().unwrap()).unwrap();
+        fs::write(&created, "{}\n").unwrap();
+
+        assert_eq!(snapshot.changed_paths(root).unwrap().len(), 2);
+        snapshot.restore(root).unwrap();
+        assert_eq!(fs::read_to_string(existing).unwrap(), "before\n");
+        assert!(!created.exists());
+    }
 
     #[test]
     fn generated_markdown_has_lf_and_one_terminal_newline() {

@@ -111,6 +111,8 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime validation: `passed`
-- Safe-wrapper status: `not_safely_wrapped`
+- Safe-wrapper status: `slatec::ode::Driv1Session::<f64>::integrate_to`
+- Safe-facade link test: `not_recorded`
+- Safe-facade runtime test: `not_recorded`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

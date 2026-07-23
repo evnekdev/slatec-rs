@@ -134,6 +134,8 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime validation: `representative-family-coverage`
-- Safe-wrapper status: `not_safely_wrapped`
+- Safe-wrapper status: `slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve`
+- Safe-facade link test: `focused_native_linked`
+- Safe-facade runtime test: `native_manufactured_solution`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->
