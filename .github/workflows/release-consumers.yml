@@ -16,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@1.85.0
-      - run: cargo fetch --locked
+      # This library workspace deliberately does not commit Cargo.lock.
+      - run: cargo fetch
       - name: Package-first Linux consumers without a Fortran compiler
         env:
           SLATEC_REGISTRY_TARGET: linux
@@ -42,7 +43,8 @@ jobs:
         run: |
           rustup target add x86_64-pc-windows-gnu
           Add-Content $env:GITHUB_PATH 'C:\msys64\mingw64\bin'
-          cargo fetch --locked
+          # This library workspace deliberately does not commit Cargo.lock.
+          cargo fetch
       - name: Package-first Windows GNU consumers without a Fortran compiler
         shell: pwsh
         env:
