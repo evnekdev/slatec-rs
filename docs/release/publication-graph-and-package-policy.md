@@ -76,11 +76,10 @@ yank/rollback preparation.
 
 Cargo writes the current Git revision to `.cargo_vcs_info.json` in a package.
 That receipt remains in every actual `.crate` and the independent audit still
-enforces its real compressed-size limit. Committed package evidence instead
-records canonical size and hash metrics that omit only this volatile receipt,
+enforces its real compressed-size limit. Committed package evidence records
+the deterministic limit result rather than volatile archive bytes or hashes,
 so creating the evidence commit cannot itself make the next regeneration
-stale. The audit labels that normalization explicitly; all other packaged
-files remain part of the canonical metrics.
+stale. The audit still unpacks and checks every other packaged file.
 
 The four API baselines are deliberately not interchangeable: a safe wrapper
 path is not evidence that its raw declaration is stable, and an unsafe ABI path
