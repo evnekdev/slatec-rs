@@ -1,6 +1,6 @@
 {
   "input": "generated/public-api/public-module-feature-map.json",
-  "input_sha256": "4b9abd3fe8f36ea89c76c69ca84f33b30f444fdf6b466f4fb26e172df71e00ee",
+  "input_sha256": "f43ac1be33d4f71a27ef5b9334ccb0353c01c8e749eb40dc02d763f8e95a5769",
   "policy": "The public module map is the deterministic feature-to-capability index for no-default-feature navigation and full-feature documentation review.",
   "record_count": 41,
   "records": [

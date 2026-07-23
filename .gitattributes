@@ -4,7 +4,7 @@
 
 # Profile compatibility providers are hashed into deterministic native metadata.
 # Keep their working-tree bytes stable on the supported Windows GNU profile.
-native/profile/gnu-mingw-x86_64/*.f text eol=lf
+crates/slatec-src/native/gnu-mingw-x86_64/*.f text eol=lf
 
 # Deterministic generated safe-API records and their maintained examples.
 generated/safe-api/*.json text eol=lf

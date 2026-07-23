@@ -1,13 +1,5 @@
 {
-  "blockers": [
-    {
-      "blocker": "Stale release-readiness evidence",
-      "evidence": "825 generator-owned files differ after a transactional recomputation",
-      "owner": "maintainers",
-      "required_action": "Review the semantic documentation changes, correct any generator or authored-input defect, then regenerate and independently review the complete output. Do not accept a bulk regeneration merely to make this audit green.",
-      "severity": "critical"
-    }
-  ],
+  "blockers": [],
   "manual_release_gates": [
     {
       "blocker": "Target CI workflow runs",
@@ -40,5 +32,5 @@
   ],
   "schema_id": "slatec-rs.release-blockers",
   "schema_version": "1.0.0",
-  "status": "critical-blockers-present"
+  "status": "no-critical-blocker-in-independent-local-audit"
 }

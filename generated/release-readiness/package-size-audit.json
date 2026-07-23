@@ -4,7 +4,7 @@
   "packages": [
     {
       "archive": "target/package/slatec-bundled-x86_64-pc-windows-gnu-0.1.0.crate",
-      "compressed_size_bytes": 385724,
+      "compressed_size_bytes": 385616,
       "compressed_size_within_limit": true,
       "crate": "slatec-bundled-x86_64-pc-windows-gnu",
       "file_count": 22,
@@ -13,11 +13,11 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "b46306c9ad5f7f67b6a24b628556ae3db21e23564a92648952333ce5002da192"
+      "sha256": "57f4612498d2390d540bd6466af952ab6f3f4781ff707c6490d2208619e1e043"
     },
     {
       "archive": "target/package/slatec-bundled-x86_64-unknown-linux-gnu-0.1.0.crate",
-      "compressed_size_bytes": 398565,
+      "compressed_size_bytes": 398560,
       "compressed_size_within_limit": true,
       "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
       "file_count": 23,
@@ -26,11 +26,11 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "3bf1367a558aa8ec81a3ba02fd3cc2432e5411d8aef73a3de6509d79f3a32222"
+      "sha256": "5b933130ab9ed5aa7b4700aca8204e555dcfdf0750b4ca66d98bc541a41b50fd"
     },
     {
       "archive": "target/package/slatec-sys-0.1.0.crate",
-      "compressed_size_bytes": 611732,
+      "compressed_size_bytes": 611678,
       "compressed_size_within_limit": true,
       "crate": "slatec-sys",
       "file_count": 898,
@@ -39,11 +39,11 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "03f3511975e0acbed99264e66afc29d7dcb801b4500a11782396cc7eb48db3f6"
+      "sha256": "084273002a119f9bdd48fac8b0692e350a7005a5a70eb2f0cd6ebc19ea82dfe0"
     },
     {
       "archive": "target/package/slatec-core-0.1.0.crate",
-      "compressed_size_bytes": 7439,
+      "compressed_size_bytes": 7396,
       "compressed_size_within_limit": true,
       "crate": "slatec-core",
       "file_count": 12,
@@ -52,11 +52,11 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "34ad0662ca6ab7c0cfd43cbe820ea64d1ff753a00403ec616122b65a2a114a3c"
+      "sha256": "83f7d3138c053507a443efbf176afc403eb41142185508a995d922e888a22742"
     },
     {
       "archive": "target/package/slatec-src-0.1.0.crate",
-      "compressed_size_bytes": 159512,
+      "compressed_size_bytes": 159175,
       "compressed_size_within_limit": true,
       "crate": "slatec-src",
       "file_count": 35,
@@ -65,11 +65,11 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "2f689dd2cbe059e6984cb88e33c1388fe86b7b7c355230e487b8c73f1f3f733f"
+      "sha256": "6e47444b8490590ebcdb942d5190504d26815295e804bd41a924c437b69dea34"
     },
     {
       "archive": "target/package/slatec-0.1.0.crate",
-      "compressed_size_bytes": 344483,
+      "compressed_size_bytes": 344454,
       "compressed_size_within_limit": true,
       "crate": "slatec",
       "file_count": 319,
@@ -78,7 +78,7 @@
       "missing_runtime_license_files": [],
       "packaged_manifest_has_no_path_or_git_dependencies": true,
       "result": "pass",
-      "sha256": "17f1c495e14e61a1101d69353cc91fd1de52b325846e5874b4dd3e06babd5078"
+      "sha256": "6ae4f8ef1731d055898f0a84e40105d709039858edfe66d84b2db4cb95c0aa88"
     }
   ],
   "result": "pass",

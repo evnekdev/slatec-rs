@@ -38,6 +38,16 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<EolAuditResult> {
                     "required":"i/lf",
                 }));
             }
+            let working_tree = metadata.split_whitespace().nth(1).unwrap_or("w/none");
+            if working_tree != "w/lf" {
+                violations.push(json!({
+                    "path":path.replace('\\', "/"),
+                    "surface":"git-working-tree",
+                    "observed":working_tree,
+                    "required":"w/lf",
+                    "remediation":"git add --renormalize -- .; then restore unchanged paths with core.autocrlf=false if this worktree predates .gitattributes",
+                }));
+            }
         }
     }
 
