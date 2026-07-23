@@ -233,6 +233,14 @@ mod fishpack_pois3d;
 ///
 /// Only reviewed FISHPACK drivers are re-exported here from their private
 /// declaration owners.
+/// Private declaration owner for canonical general FISHPACK bindings.
+///
+/// This is kept at the crate root so the `#[path]` is valid on filesystems
+/// that require each intermediate directory in a relative path to exist.
+#[cfg(feature = "raw-family-fishpack-general")]
+#[path = "batch_a/pde_fishpack.rs"]
+mod fishpack_general_bindings;
+
 #[cfg(any(
     feature = "raw-family-fishpack-cartesian-2d",
     feature = "raw-family-fishpack-pois3d",
@@ -245,14 +253,11 @@ pub mod pde {
         #[cfg(feature = "raw-family-fishpack-cartesian-2d")]
         #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscrt.md"))]
         pub use crate::fishpack_cartesian_2d::hwscrt;
+        #[cfg(feature = "raw-family-fishpack-general")]
+        pub use crate::fishpack_general_bindings::*;
         #[cfg(feature = "raw-family-fishpack-pois3d")]
         #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pois3d.md"))]
         pub use crate::fishpack_pois3d::pois3d;
-        #[cfg(feature = "raw-family-fishpack-general")]
-        #[path = "../../batch_a/pde_fishpack.rs"]
-        mod canonical_bindings;
-        #[cfg(feature = "raw-family-fishpack-general")]
-        pub use canonical_bindings::*;
         #[cfg(feature = "raw-family-fishpack-complex")]
         pub mod complex {
             pub use crate::abi_bindings::fishpack::*;
