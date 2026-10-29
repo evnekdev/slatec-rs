@@ -1,6 +1,14 @@
 # Codex task checklist
 
-Use this for any change spanning more than one file or one crate.
+Use this for changes spanning more than one file or crate. **The issue-first requirement below applies to every repository-content change, even a one-line edit.**
+
+## 0. Required issue BEFORE editing
+
+- [ ] Create or identify an existing GitHub issue **in this repository** that accurately covers the intended change; do so before editing any file, including documentation or generated records.
+- [ ] Record problem/rationale, proposed files/crates, public API/features/providers/ABI/source-closure impact, supporting evidence, acceptance criteria, exact validation plan, explicit non-goals and stop conditions.
+- [ ] For work spanning repositories, ensure each changed repository has its own cross-linked issue before any corresponding edit.
+- [ ] Add an issue update **before** expanding scope; split unrelated work into a separate issue.
+- [ ] Link commits/PRs to the issue and report exact results/limitations there before closure.
 
 ## 1. Reconnaissance
 
@@ -70,6 +78,7 @@ Use this at the start of substantial Codex prompts:
 
 ```text
 Before editing:
+0. open or identify the GitHub issue that explains this work and its boundaries; update the issue if incomplete;
 1. fetch and verify origin/master;
 2. read all applicable AGENTS.md files;
 3. read docs/architecture/README.md and relevant linked documents;
