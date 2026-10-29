@@ -38,6 +38,16 @@ For how these documents apply to Codex tasks, read [Using Codex](docs/agent/USIN
 9. Do not weaken tests, audits, deterministic generation, or safety checks to make a change pass.
 10. Never claim a native command passed unless it actually ran in the current environment.
 
+## Mandatory issue-first change history
+
+**Before changing ANY file in this repository, open or identify a sufficiently detailed GitHub issue in `evnekdev/slatec-rs`.** This applies to every crate in the SLATEC family (`slatec`, `slatec-sys`, `slatec-src`, `slatec-core`, `slatec-tools`, bundled-provider crates), as well as documentation, tests, generators, source metadata, native build integration, manifests, CI and generated records. This includes one-line edits, urgent fixes and planned refactors. Do not implement first and file an issue later.
+
+An issue must identify **why** the change is necessary, concrete proposed work and owning paths/crates, evidence and expected outcome, affected public APIs/features/providers/ABIs/source closures (or explicitly state none), compatibility and native-link risks, bounded non-goals, acceptance criteria and validation commands. An existing issue counts only if its description actually covers the task; add missing details **before** editing. Use one issue per cohesive change, not per file.
+
+Record meaningful decisions and update the issue **before** any material expansion in scope. Create a separate issue for unrelated work. Every cross-repository change requires a related issue in each affected repository, linked before modifications. Reference the issue from commits and PRs, then record exact implemented work, PASS/FAIL/NOT RUN/BLOCKED verification, remaining limitations and closure reason. Tracking-only issue administration (creating/editing issues, comments and reviews) does not itself require another issue.
+
+This is a maintainer-required workflow, not permission to bypass existing native source, generator, ABI, feature/provider, scientific or release validation. See [task checklist](docs/agent/TASK-CHECKLIST.md) and shared [engineering-architecture issue-first guidance](https://github.com/evnekdev/engineering-architecture/blob/main/policies/agent-workflow.md).
+
 ## Before editing
 
 For any non-trivial task, first identify and report:
